@@ -1,0 +1,37 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TaskMonagerAviaProject.CreateProjectWindow"
+		MaxHeight="450"
+		MaxWidth="800"
+		MinHeight="450"
+		MinWidth="800"
+        Title="CreateProjectWindow"
+		WindowStartupLocation="CenterOwner"
+		TransparencyLevelHint="AcrylicBlur"
+        ExtendClientAreaToDecorationsHint="True">
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+
+		<Panel Margin="40">
+            <Grid ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
+				<StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
+					<TextBlock Text="Создание нового проекта" FontSize="30" HorizontalAlignment="Center"/>
+					<TextBox Name="NameProjectText" Watermark="Название проекта" Margin="10"/>
+					<Button Content="Сохранить" Click="SaveButtonAsync" HorizontalAlignment="Center"/>
+					<TextBlock HorizontalAlignment="Center" Name="ErrorText" Margin="10"/>
+				</StackPanel>
+            </Grid>
+		</Panel>
+	</Panel>
+</Window>

@@ -1,0 +1,167 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="450"
+        x:Class="TaskMonagerAviaProject.WindowProjects"
+		x:CompileBindings="False"
+		WindowState="Maximized"
+		WindowStartupLocation="CenterOwner"
+		MinWidth="1000" MinHeight="450"
+        Title="Horus">
+	<Grid ColumnDefinitions="* * * * *" Background="#383838" RowDefinitions=" 60 * * * * * *">
+		<StackPanel Grid.Column="0" Grid.Row="0" Background="#1e1e1e" Grid.ColumnSpan="6">
+			<Grid ColumnDefinitions="50 2* *">
+				<StackPanel Orientation="Horizontal" Grid.Column="1">
+					
+				</StackPanel>
+				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
+					<Button VerticalAlignment="Center" Margin="10" Click="ButtonPanel">
+						<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
+					</Button>
+					<Button Margin="10" Click="ButtonPanel">
+						<PathIcon Foreground="White" Data="{StaticResource person_regular}"/>
+					</Button>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+
+
+		<SplitView PanePlacement="Left" Grid.Column="0" Name="PanelProjects" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" IsPaneOpen="True"
+           DisplayMode="CompactInline" PaneBackground="#1e1e1e" 
+           OpenPaneLength="230">
+			<SplitView.Pane>
+				<ScrollViewer>
+					<Grid ColumnDefinitions="* 60">
+						<Button Click="ButtonPanelProject" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="5">
+							<StackPanel>
+								<PathIcon Foreground="White" Name="ButtonOpenMainPanel" Data="{StaticResource caret_left_regular}"/>
+								<PathIcon Foreground="White" IsVisible="False" Name="ButtonCloseMainPanel" Data="{StaticResource caret_right_regular}"/>
+							</StackPanel>
+						</Button>
+						<StackPanel Grid.Column="0" Grid.Row="0">
+							<Button VerticalAlignment="Top" Margin="5">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Главная" VerticalAlignment="Center" Margin="0 0 10 0"/>
+									<PathIcon Foreground="White" Data="{StaticResource home_regular}"/>
+								</StackPanel>
+							</Button>
+							<Button VerticalAlignment="Center" Margin="5">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Моя работа" VerticalAlignment="Center" Margin="0 0 10 0"/>
+									<PathIcon Foreground="White" Data="{StaticResource line_horizontal_3_regular}"/>
+								</StackPanel>
+							</Button>
+							<Border HorizontalAlignment="Stretch" BorderBrush="Gray" BorderThickness="0 1 0 0" Margin="0 10"/>
+							<TextBlock Margin="5" Text="Рабочее пространство:"/>
+							<Button Click="CreateNewProject" VerticalAlignment="Top" Margin="5">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Создать проект" VerticalAlignment="Center" Margin="0 0 10 0"/>
+									<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+								</StackPanel>
+							</Button>
+							<ListBox Background="Transparent" Name="ProjectList">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Border Tapped="OpenProject" Background="LightGray" CornerRadius="10" Tag="{Binding Id}" BorderBrush="Gray" BorderThickness="1">
+											<StackPanel Margin="5">
+												<TextBlock Foreground="Black" FontSize="20" Text="{Binding ProjectName}"/>
+												<TextBlock Foreground="Black" Text="{Binding RoleInProject}"/>
+											</StackPanel>
+										</Border>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</StackPanel>
+					</Grid>
+				</ScrollViewer>
+			</SplitView.Pane>
+			<SplitView.Content>
+				<Grid Name="ProjectVisible" IsVisible="False" Background="#383838" ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
+					<StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+						<Button Click="NewTaskButton" BorderBrush="Gray" Margin="0 10">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="Добавить новую задачу" Margin="0 0 10 0"/>
+								<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+							</StackPanel>
+						</Button>
+					</StackPanel>
+					<ListBox Name="ListTasks" Grid.Column="1" Grid.Row="1">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Border CornerRadius="10" BorderBrush="White" BorderThickness="1">
+									<Grid ColumnDefinitions="* 5* *">
+										<Border CornerRadius="10 0 0 10" Background="{Binding Color}" Grid.Column="0">
+											<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding StatusName}"/>
+										</Border>
+										<StackPanel Grid.Column="1" HorizontalAlignment="Center">
+											<TextBlock Text="{Binding TaskName}"/>
+											<TextBlock Text="{Binding DescriptionTask}"/>
+										</StackPanel>
+										<Button Tag="{Binding Id}" Grid.Column="2" Click="EditTaskButton" HorizontalAlignment="Right" Margin="10">
+											<PathIcon Foreground="White" Data="{StaticResource settings_regular}"/>
+										</Button>
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</Grid>
+			</SplitView.Content>
+		</SplitView>
+		
+	
+		
+		<SplitView PanePlacement="Right" Grid.Column="0" Name="Panel" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="7" IsPaneOpen="False"
+           DisplayMode="Inline" PaneBackground="#1e1e1e"
+           OpenPaneLength="400">
+			<SplitView.Pane>
+				<ScrollViewer>
+					<Grid ColumnDefinitions="60 *">
+						<StackPanel Grid.Column="0" VerticalAlignment="Top">
+							<Button Margin="10" Click="ButtonPanel">
+								<PathIcon Foreground="White" Data="{StaticResource person_regular}"/>
+							</Button>
+							<Button VerticalAlignment="Center" Margin="10" Click="ButtonPanel">
+								<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
+							</Button>
+						</StackPanel>
+						<StackPanel Margin="10" HorizontalAlignment="Center" Grid.Column="1">
+							<Border Background="#383838" CornerRadius="10">
+								<StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
+									<Image Name="ImageTest"/>
+									<Border CornerRadius="10">
+										<ScrollViewer HorizontalScrollBarVisibility="Auto" >
+											<TextBlock FontSize="20" Foreground="White" Name="UserName" TextAlignment="Center" Padding="15"/>
+										</ScrollViewer>
+									</Border>
+								</StackPanel>
+							</Border>
+							<Button Background="#383838" CornerRadius="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0 10" Content="Настройки пользователя"/>
+							<Button Background="#383838" CornerRadius="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="ExitAccaunt" Content="Выйти из аккаунта"/>
+						</StackPanel>
+					</Grid>
+				</ScrollViewer>
+			</SplitView.Pane>
+		</SplitView>
+
+
+		
+		
+		
+		
+		
+		
+		<StackPanel IsVisible="False" Name="SystemMessage" Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="0">
+			<Border BorderBrush="Gray" Background="LightGray" BorderThickness="1 0 0 1" CornerRadius="0 0 0 10">
+				<StackPanel Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<TextBlock Foreground="Black" Text="Оставаться в системе?" TextWrapping="Wrap" FontSize="20"/>
+					<Grid ColumnDefinitions="* *" Margin="10">
+						<Button Foreground="Black" Click="YesSaveButton" HorizontalAlignment="Center" BorderBrush="Gray" Content="Да" Width="60" HorizontalContentAlignment="Center" Grid.Column="0"/>
+						<Button Foreground="Black" Click="NoSaveButton" HorizontalAlignment="Center" BorderBrush="Gray" Content="Нет" Width="60" HorizontalContentAlignment="Center" Grid.Column="1"/>
+					</Grid>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</Grid>
+</Window>

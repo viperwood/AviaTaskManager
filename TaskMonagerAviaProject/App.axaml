@@ -1,0 +1,18 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TaskMonagerAviaProject.App"
+             RequestedThemeVariant="Dark">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+        <FluentTheme/>
+		<StyleInclude Source="/Assets/UserIcon.axaml"/>
+		<StyleInclude Source="/Assets/HomeIcon.axaml"/>
+		<StyleInclude Source="/Assets/MenuLineIcon.axaml"/>
+		<StyleInclude Source="/Assets/UserMailIcon.axaml"/>
+		<StyleInclude Source="/Assets/CaretLeftIcon.axaml"/>
+		<StyleInclude Source="/Assets/CaretRightIcon.axaml"/>
+		<StyleInclude Source="/Assets/AddSquareRegular.axaml"/>
+		<StyleInclude Source="/Assets/SettingsRegularIcon.axaml"/>
+    </Application.Styles>
+</Application>
