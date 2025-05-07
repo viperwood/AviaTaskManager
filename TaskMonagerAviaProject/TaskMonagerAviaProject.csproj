@@ -8,14 +8,17 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
   <ItemGroup>
-    <AvaloniaXaml Remove="Images\**" />
-    <Compile Remove="Images\**" />
-    <EmbeddedResource Remove="Images\**" />
-    <None Remove="Images\**" />
+    <None Remove="Images\Logo.png" />
+    <None Remove="Images\LogoDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Images\Logo.png" />
+    <AvaloniaResource Include="Images\LogoDark.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.2.8" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.2.8" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.8" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.8" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.8" />

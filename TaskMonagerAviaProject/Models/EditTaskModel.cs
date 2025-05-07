@@ -21,5 +21,7 @@ namespace TaskMonagerAviaProject.Models
         public string? Password { get; set; }
 
         public List<int>? ExecutorId { get; set; }
+
+        public List<int>? TasksId { get; set; }
     }
 }

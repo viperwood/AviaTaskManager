@@ -6,17 +6,28 @@
         x:Class="TaskMonagerAviaProject.WindowProjects"
 		x:CompileBindings="False"
 		WindowState="Maximized"
+		Icon="\Images\LogoDark.png"
 		WindowStartupLocation="CenterOwner"
 		MinWidth="1000" MinHeight="450"
         Title="Horus">
 	<Grid ColumnDefinitions="* * * * *" Background="#383838" RowDefinitions=" 60 * * * * * *">
-		<StackPanel Grid.Column="0" Grid.Row="0" Background="#1e1e1e" Grid.ColumnSpan="6">
-			<Grid ColumnDefinitions="50 2* *">
-				<StackPanel Orientation="Horizontal" Grid.Column="1">
-					
+
+
+		<StackPanel Background="#1e1e1e" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6">
+			<Grid ColumnDefinitions="60 170 3* *">
+				<Image Grid.Column="0" Source="\Images\Logo.png" Margin="10 0 0 0"/>
+				<StackPanel Orientation="Horizontal" Grid.Column="2">
+					<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10 0">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Спринты" FontSize="15" Margin="40 0"/>
+						</StackPanel>
+					</Button>
 				</StackPanel>
-				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
-					<Button VerticalAlignment="Center" Margin="10" Click="ButtonPanel">
+				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="3">
+					<Button Margin="10" Click="AddFrendButtonPanel">
+						<PathIcon Foreground="White" Data="{StaticResource person_add_regular}"/>
+					</Button>
+					<Button VerticalAlignment="Center" Margin="10" Click="ButtonMailBoxPanel">
 						<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
 					</Button>
 					<Button Margin="10" Click="ButtonPanel">
@@ -28,18 +39,18 @@
 
 
 		<SplitView PanePlacement="Left" Grid.Column="0" Name="PanelProjects" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" IsPaneOpen="True"
-           DisplayMode="CompactInline" PaneBackground="#1e1e1e" 
+           DisplayMode="CompactInline" PaneBackground="#1e1e1e"
            OpenPaneLength="230">
 			<SplitView.Pane>
 				<ScrollViewer>
-					<Grid ColumnDefinitions="* 60">
-						<Button Click="ButtonPanelProject" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Margin="5">
+					<Grid ColumnDefinitions="* 60" RowDefinitions="*">
+						<Button Grid.Column="1" Grid.Row="1" Click="ButtonPanelProject" VerticalAlignment="Top" Margin="5">
 							<StackPanel>
 								<PathIcon Foreground="White" Name="ButtonOpenMainPanel" Data="{StaticResource caret_left_regular}"/>
 								<PathIcon Foreground="White" IsVisible="False" Name="ButtonCloseMainPanel" Data="{StaticResource caret_right_regular}"/>
 							</StackPanel>
 						</Button>
-						<StackPanel Grid.Column="0" Grid.Row="0">
+						<StackPanel Grid.Column="0" Grid.Row="1">
 							<Button VerticalAlignment="Top" Margin="5">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="Главная" VerticalAlignment="Center" Margin="0 0 10 0"/>
@@ -76,72 +87,357 @@
 					</Grid>
 				</ScrollViewer>
 			</SplitView.Pane>
+			
+			
+			
 			<SplitView.Content>
 				<Grid Name="ProjectVisible" IsVisible="False" Background="#383838" ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
-					<StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
-						<Button Click="NewTaskButton" BorderBrush="Gray" Margin="0 10">
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Добавить новую задачу" Margin="0 0 10 0"/>
-								<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
-							</StackPanel>
-						</Button>
-					</StackPanel>
-					<ListBox Name="ListTasks" Grid.Column="1" Grid.Row="1">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
+					<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
+						<Grid>
+							<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+								<StackPanel Orientation="Horizontal">
+									<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Добавить новую задачу" Margin="0 0 10 0"/>
+											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+										</StackPanel>
+									</Button>
+									<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Создать спринт" Margin="0 0 10 0"/>
+											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+										</StackPanel>
+									</Button>
+									<Button Click="NewStatusTaskButton" BorderBrush="Gray" Margin="10">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Добавить новый статус" Margin="0 0 10 0"/>
+											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+										</StackPanel>
+									</Button>
+								</StackPanel>
+							</ScrollViewer>
+						</Grid>
+					</Border>
+					
+					
+					<TreeView Grid.Column="1" Grid.Row="1"
+						Margin="50"
+						  Name="ListTasks"
+						  SelectionMode="Single">
+						<TreeView.ItemTemplate>
+							<TreeDataTemplate ItemsSource="{Binding Subtask}">
 								<Border CornerRadius="10" BorderBrush="White" BorderThickness="1">
-									<Grid ColumnDefinitions="* 5* *">
-										<Border CornerRadius="10 0 0 10" Background="{Binding Color}" Grid.Column="0">
-											<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding StatusName}"/>
+									<Grid ColumnDefinitions="* 5* * *">
+										<Border CornerRadius="10 0 0 10" Background="{Binding StatusColor}" Grid.Column="0">
+											<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding StatusTitle}"/>
 										</Border>
 										<StackPanel Grid.Column="1" HorizontalAlignment="Center">
-											<TextBlock Text="{Binding TaskName}"/>
+											<TextBlock Text="{Binding TitleTask}"/>
 											<TextBlock Text="{Binding DescriptionTask}"/>
 										</StackPanel>
-										<Button Tag="{Binding Id}" Grid.Column="2" Click="EditTaskButton" HorizontalAlignment="Right" Margin="10">
+										<ListBox Background="Transparent" ItemsSource="{Binding userList}" Grid.Column="2">
+											<ListBox.ItemTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Username}"/>
+												</DataTemplate>
+											</ListBox.ItemTemplate>
+										</ListBox>
+										<Button Tag="{Binding Id}" Grid.Column="3" Click="EditTaskButton" HorizontalAlignment="Right" Margin="10">
 											<PathIcon Foreground="White" Data="{StaticResource settings_regular}"/>
 										</Button>
 									</Grid>
 								</Border>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
+							</TreeDataTemplate>
+						</TreeView.ItemTemplate>
+					</TreeView>
+					<!--!!!!!!!!!!!!-->
+					<SplitView PanePlacement="Right" Grid.Column="1" Name="PanelProject" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7"
+						DisplayMode="CompactInline" PaneBackground="#1e1e1e" IsPaneOpen="False"
+						OpenPaneLength="600">
+						<SplitView.Pane>
+							<Grid ColumnDefinitions="60 *">
+								<StackPanel Grid.Column="0">
+									<Button Click="ProjectRightPanelInfo" Name="ButtonProjectRightPanelInfo" BorderBrush="Gray" Margin="5 10 5 10">
+										<PathIcon Foreground="White" Data="{StaticResource line_horizontal_3_regular}"/>
+									</Button>
+									<Button Click="ProjectRightPanelMails" Name="ButtonProjectRightPanelMail" BorderBrush="Gray" Margin="5 10 5 10">
+										<PathIcon Foreground="White" Data="{StaticResource mail_regular}"/>
+									</Button>
+								</StackPanel>
+								<!--Панель информации проекта-->
+								<Grid Grid.Column="1" RowDefinitions="80 *" IsVisible="False" Margin="10" Name="PanelProjectInfo">
+									<Grid Grid.Row="0">
+										<TextBlock FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Name="NameProjectText"/>
+										<Button  HorizontalAlignment="Right" VerticalAlignment="Center" Click="EditProjectButton" BorderBrush="Gray" Margin="5 10 5 10">
+											<PathIcon Foreground="White" Data="{StaticResource settings_regular}"/>
+										</Button>
+									</Grid>
+									<ScrollViewer Grid.Row="1">
+										<Grid RowDefinitions="50 0.5* 50 * 20">
+											<Grid Grid.Row="0">
+												<TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Список ролей в проекте"/>
+												<Button  HorizontalAlignment="Right" VerticalAlignment="Center" Click="CreateNewRoleProject" BorderBrush="Gray" Margin="5 10 5 10">
+													<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+												</Button>
+											</Grid>
+											<ScrollViewer Grid.Row="1">
+												<ListBox Name="RolesProjectList">
+													<ListBox.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapPanel/>
+														</ItemsPanelTemplate>
+													</ListBox.ItemsPanel>
+													<ListBox.ItemTemplate>
+														<DataTemplate>
+															<WrapPanel Orientation="Horizontal">
+																<WrapPanel.ContextMenu>
+																	<ContextMenu>
+																		<MenuItem Tag="{Binding Id}" Click="DeleteRoleProjectButton" Header="Удалить"/>
+																	</ContextMenu>
+																</WrapPanel.ContextMenu>
+																<Border Margin="10" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+																	<Grid>
+																		<TextBlock Text="{Binding TitleRole}" Margin="10" VerticalAlignment="Center"/>
+																	</Grid>
+																</Border>
+															</WrapPanel>
+														</DataTemplate>
+													</ListBox.ItemTemplate>
+												</ListBox>
+											</ScrollViewer>
+											<Grid Grid.Row="2">
+												<TextBlock FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Список участников проекта"/>
+												<Button  HorizontalAlignment="Right" VerticalAlignment="Center" Click="AddUserProject" BorderBrush="Gray" Margin="5 10 5 10">
+													<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+												</Button>
+											</Grid>
+											<ScrollViewer Grid.Row="3">
+												<ListBox Name="UsersProjectList">
+													<ListBox.ItemTemplate>
+														<DataTemplate>
+															<Border BorderBrush="White" BorderThickness="1" CornerRadius="10">
+																<Border.ContextMenu>
+																	<ContextMenu>
+																		<MenuItem Tag="{Binding UserId}" Click="DeleteUserProjectButton" Header="Удалить"/>
+																	</ContextMenu>
+																</Border.ContextMenu>
+																<Grid>
+																	<TextBlock Text="{Binding Username}" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center"/>
+																	<Border BorderBrush="White" VerticalAlignment="Center" HorizontalAlignment="Right" BorderThickness="1 0 0 0">
+																		<TextBlock Text="{Binding TitleRole}" Margin="10"/>
+																	</Border>
+																</Grid>
+															</Border>
+														</DataTemplate>
+													</ListBox.ItemTemplate>
+												</ListBox>
+											</ScrollViewer>
+										</Grid>
+									</ScrollViewer>
+								</Grid>
+								<!--!!!!!!!!!!!!-->
+								<StackPanel Name="PanelProjectMails" Grid.Column="1">
+								</StackPanel>
+							</Grid>
+						</SplitView.Pane>
+					</SplitView>
+					<!--!!!!!!!!!!!!-->
 				</Grid>
 			</SplitView.Content>
 		</SplitView>
 		
 	
 		
-		<SplitView PanePlacement="Right" Grid.Column="0" Name="Panel" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="7" IsPaneOpen="False"
-           DisplayMode="Inline" PaneBackground="#1e1e1e"
-           OpenPaneLength="400">
+		<SplitView PanePlacement="Right" Grid.Column="0" Name="Panel" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="7"
+           DisplayMode="Inline" PaneBackground="#1e1e1e" IsPaneOpen="False"
+           OpenPaneLength="600">
 			<SplitView.Pane>
-				<ScrollViewer>
-					<Grid ColumnDefinitions="60 *">
-						<StackPanel Grid.Column="0" VerticalAlignment="Top">
-							<Button Margin="10" Click="ButtonPanel">
-								<PathIcon Foreground="White" Data="{StaticResource person_regular}"/>
-							</Button>
-							<Button VerticalAlignment="Center" Margin="10" Click="ButtonPanel">
-								<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
-							</Button>
-						</StackPanel>
-						<StackPanel Margin="10" HorizontalAlignment="Center" Grid.Column="1">
-							<Border Background="#383838" CornerRadius="10">
-								<StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
-									<Image Name="ImageTest"/>
-									<Border CornerRadius="10">
-										<ScrollViewer HorizontalScrollBarVisibility="Auto" >
-											<TextBlock FontSize="20" Foreground="White" Name="UserName" TextAlignment="Center" Padding="15"/>
-										</ScrollViewer>
-									</Border>
-								</StackPanel>
-							</Border>
+				<Grid ColumnDefinitions="60 *">
+					<StackPanel Grid.Column="0" VerticalAlignment="Top">
+						<Button Name="UserInfoButton" Margin="10" Click="ButtonPanel">
+							<PathIcon Foreground="White" Data="{StaticResource person_regular}"/>
+						</Button>
+						<Button Name="MailBoxButton" VerticalAlignment="Center" Margin="10" Click="ButtonMailBoxPanel">
+							<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
+						</Button>
+						<Button Name="UserFrendsButtonP" Margin="10" Click="AddFrendButtonPanel">
+							<PathIcon Foreground="White" Data="{StaticResource person_add_regular}"/>
+						</Button>
+					</StackPanel>
+					<!--Панель информации пользователя-->
+					<Grid ColumnDefinitions="20 * 20" RowDefinitions="20 0.5* 130 * 20" IsVisible="False" Name="UserInfoPanel" Margin="10" Grid.Column="1">
+						<Border Grid.Column="1" Grid.Row="1" Background="#383838" CornerRadius="10">
+							<Grid HorizontalAlignment="Center" VerticalAlignment="Center" RowDefinitions="* *" Margin="10">
+								<Image Name="ImageTest" Grid.Row="0"/>
+								<Border CornerRadius="10" HorizontalAlignment="Center" Grid.Row="1">
+									<ScrollViewer HorizontalScrollBarVisibility="Auto" >
+										<TextBlock FontSize="20" Foreground="White" Name="UserName" TextAlignment="Center" Padding="15"/>
+									</ScrollViewer>
+								</Border>
+							</Grid>
+						</Border>
+						<StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
 							<Button Background="#383838" CornerRadius="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0 10" Content="Настройки пользователя"/>
 							<Button Background="#383838" CornerRadius="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="ExitAccaunt" Content="Выйти из аккаунта"/>
+							<TextBlock Text="Преглашения в проекты:" Margin="0 10" FontSize="20"/>
 						</StackPanel>
+						<ListBox Name="ListAcceptanceCancelProjects" Grid.Column="1" Margin="0 10" CornerRadius="10" Grid.Row="3">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border Margin="10" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+										<Grid ColumnDefinitions="* 50 50" Margin="10">
+											<TextBlock Text="{Binding NameProject}" VerticalAlignment="Center" Grid.Column="0"/>
+											<Button Click="AcceptanceProject" Tag="{Binding ProjectId}" HorizontalAlignment="Right" Grid.Column="1">
+												<PathIcon Foreground="White" Width="15" Data="{StaticResource checkmark_regular}"/>
+											</Button>
+											<Button Click="CancelProjectButton" Tag="{Binding ProjectId}" HorizontalAlignment="Right" Grid.Column="2">
+												<PathIcon Foreground="White" Width="15" Data="{StaticResource dismiss_regular}"/>
+											</Button>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
 					</Grid>
-				</ScrollViewer>
+					<!--Панель чатов друзей-->
+					<Grid ColumnDefinitions="50 2* 4 4* 70" RowDefinitions="50 * 50" Grid.Column="1" IsVisible="False" Name="MailBoxPanel" Margin="10">
+						<ListBox CornerRadius="10 0 0 10" Name="ListFrends" Background="DimGray" Grid.Column="1" Grid.Row="1">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border Tapped="SelectFrend" Tag="{Binding FrendId}" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+										<StackPanel Margin="10">
+											<TextBlock Text="{Binding FrendName}"/>
+										</StackPanel>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+						<GridSplitter Grid.Column="2" Grid.Row="1" Background="LightGray" ResizeDirection="Columns"/>
+						<Grid RowDefinitions="50 * 0.1*" Grid.Column="3" Grid.Row="1">
+							<Border Grid.Row="0" CornerRadius="0 10 0 0" Background="DimGray">
+								<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Name="FrendName" FontSize="20"/>
+							</Border>
+							<ScrollViewer Grid.Row="1">
+								<ListBox Name="ListTextMails" Background="Gray">
+									<ListBox.ItemTemplate>
+										<DataTemplate>
+											<Border Background="{Binding ColorUser}" MaxWidth="300" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
+												<Border.ContextMenu>
+													<ContextMenu>
+														<MenuItem Tag="{Binding Id}" Click="EditMailTextButton" Header="Редактировать"/>
+														<MenuItem Tag="{Binding Id}" Click="AnswerMailTextButton" Header="Ответить"/>
+														<MenuItem Tag="{Binding Id}" Click="DelitMailTextButton" Header="Удалить"/>
+													</ContextMenu>
+												</Border.ContextMenu>
+												<StackPanel>
+													<StackPanel Tag="{Binding AnswerMailId}" IsVisible="{Binding VisibleAnsver}">
+														<TextBlock TextWrapping="Wrap" Text="{Binding AnswerMailText}" Margin="10 5"/>
+														<Border BorderBrush="WhiteSmoke" BorderThickness="0 1 0 0"/>
+													</StackPanel>
+													<StackPanel>
+														<TextBlock TextWrapping="Wrap" Text="{Binding TextMail}" Margin="10 5"/>
+														<StackPanel Margin="10 5" Orientation="Horizontal">
+															<TextBlock TextWrapping="Wrap" Foreground="Gainsboro" Text="{Binding TitleStatus}" Margin="0 0 10 0"/>
+															<TextBlock TextWrapping="Wrap" Foreground="Gainsboro" Text="{Binding DateAndTimeMail}"/>
+														</StackPanel>
+													</StackPanel>
+												</StackPanel>
+											</Border>
+										</DataTemplate>
+									</ListBox.ItemTemplate>
+								</ListBox>
+							</ScrollViewer>
+							<Border Grid.Row="1" Background="Gray" IsVisible="False" Name="PanelAnswer" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
+								<ScrollViewer>
+									<StackPanel>
+										<Grid>
+											<Border Margin="10 10 50 10" Background="DimGray" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
+												<StackPanel>
+													<TextBlock TextWrapping="Wrap" Name="AnswerTextMail" Margin="10 5"/>
+													<StackPanel Margin="10 5" Orientation="Horizontal">
+														<TextBlock TextWrapping="Wrap" Name="AnswerTitleStatus" Foreground="Gainsboro" Margin="0 0 10 0"/>
+														<TextBlock TextWrapping="Wrap" Name="AnswerDateAndTimeMail" Foreground="Gainsboro"/>
+													</StackPanel>
+												</StackPanel>
+											</Border>
+											<Button VerticalAlignment="Top" Click="CloseAnswer" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
+												<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
+											</Button>
+										</Grid>
+									</StackPanel>
+								</ScrollViewer>
+							</Border>
+							<Border Grid.Row="1" Background="Gray" IsVisible="False" Name="PanelEdit" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
+								<ScrollViewer>
+									<StackPanel>
+										<Grid>
+											<TextBlock Text="Редактирование" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+											<Button VerticalAlignment="Top" Click="CloseEdit" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
+												<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
+											</Button>
+										</Grid>
+									</StackPanel>
+								</ScrollViewer>
+							</Border>
+							<Border Grid.Row="2" CornerRadius="0 0 10 0" Background="DimGray">
+								<Grid Name="PushTextPanel" IsVisible="False" >
+									<Button VerticalAlignment="Stretch" Click="PushTextMailButton" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="0 10 10 0" BorderBrush="Gray">
+										<PathIcon Foreground="White" Data="{StaticResource caret_right_regular}"/>
+									</Button>
+									<TextBox AcceptsReturn="True" CornerRadius="10 0 0 10" BorderBrush="Black" Foreground="White" Name="SecondPasswordTextReg" Margin="10 10 50 10" TextWrapping="Wrap" Watermark="Сообщение" />
+								</Grid>
+							</Border>
+						</Grid>
+					</Grid>
+					<!--Панель подтверждения друзей-->
+					<Grid ColumnDefinitions="50 * 50" RowDefinitions="20 100 50 * 50 * 20" IsVisible="False" Name="FrendsPanel" Margin="10" Grid.Column="1">
+						<StackPanel Grid.Column="1" Grid.Row="1">
+							<TextBlock Text="Отправить преглошение в друзья" FontSize="20" HorizontalAlignment="Center" Foreground="White"/>
+							<Grid>
+								<Button HorizontalAlignment="Right" Click="AddNewFrend" VerticalAlignment="Stretch" Margin="0 10 0 10" CornerRadius="0 10 10 0" BorderBrush="Gray">
+									<PathIcon Foreground="White" Data="{StaticResource people_search_regular}"/>
+								</Button>
+								<TextBox Padding="10" BorderBrush="White" Foreground="White" Name="FrendNameText" Margin="0 10 40 10" TextWrapping="Wrap" Background="Transparent" CornerRadius="10 0 0 10" Watermark="Username#0000" BorderThickness="1"/>
+							</Grid>
+							<TextBlock Name="ErrorAddFrend" HorizontalAlignment="Center"/>
+						</StackPanel>
+						<TextBlock Text="Список ваших друзей:" FontSize="20" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
+						<ListBox Grid.Column="1" Name="ListUserFrends" CornerRadius="10" Grid.Row="3">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border Margin="10" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+										<Border.ContextMenu>
+											<ContextMenu>
+												<MenuItem Tag="{Binding FrendId}" Click="DeleteFrendButton" Header="Удалить из друзей"/>
+											</ContextMenu>
+										</Border.ContextMenu>
+										<Grid ColumnDefinitions="* 50 50" Margin="10">
+											<TextBlock Text="{Binding FrendName}" VerticalAlignment="Center" Grid.Column="0"/>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+						<TextBlock Text="Заявки в друзья:" FontSize="20" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
+						<ListBox Name="ListAddUserFrends" Grid.Column="1" CornerRadius="10" Grid.Row="5">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border Margin="10" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+										<Grid ColumnDefinitions="* 50 50" Margin="10">
+											<TextBlock Text="{Binding Username}" VerticalAlignment="Center" Grid.Column="0"/>
+											<Button Click="AcceptanceFrend" Tag="{Binding Id}" HorizontalAlignment="Right" Grid.Column="1">
+												<PathIcon Foreground="White" Width="15" Data="{StaticResource checkmark_regular}"/>
+											</Button>
+											<Button Click="CancelFrendButton" Tag="{Binding Id}" HorizontalAlignment="Right" Grid.Column="2">
+												<PathIcon Foreground="White" Width="15" Data="{StaticResource dismiss_regular}"/>
+											</Button>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</Grid>
+				</Grid>
 			</SplitView.Pane>
 		</SplitView>
 

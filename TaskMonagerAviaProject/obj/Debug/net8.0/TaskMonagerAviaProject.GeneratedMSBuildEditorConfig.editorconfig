@@ -31,10 +31,25 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/CaretRightIcon.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/CheckmarkRegularIcon.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/DismissRegularIcon.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/FrendsIcon.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/HomeIcon.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/MailRegularIcon.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/MenuLineIcon.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/PeopleSearchRegularIcon.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/SettingsRegularIcon.axaml]
@@ -46,10 +61,19 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Assets/UserMailIcon.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/AddUserProjectWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/CreateNewStatusTaskWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/CreateNewTaskWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/CreateProjectWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/CreateRoleProjectWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/LoginWindow.axaml]

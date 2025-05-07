@@ -14,5 +14,12 @@
 		<StyleInclude Source="/Assets/CaretRightIcon.axaml"/>
 		<StyleInclude Source="/Assets/AddSquareRegular.axaml"/>
 		<StyleInclude Source="/Assets/SettingsRegularIcon.axaml"/>
+		<StyleInclude Source="/Assets/DismissRegularIcon.axaml"/>
+		<StyleInclude Source="/Assets/MailRegularIcon.axaml"/>
+		<StyleInclude Source="/Assets/FrendsIcon.axaml"/>
+		<StyleInclude Source="/Assets/PeopleSearchRegularIcon.axaml"/>
+		<StyleInclude Source="/Assets/CheckmarkRegularIcon.axaml"/>
+		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Simple/Simple.xaml" />
     </Application.Styles>
 </Application>

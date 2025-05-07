@@ -5,9 +5,11 @@ using Avalonia.Media;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Threading.Tasks;
 using TaskMonagerAviaProject.Models;
 using TaskMonagerAviaProject.StaticObjects;
 
@@ -47,11 +49,25 @@ public partial class CreateNewTaskWindow : Window
                     Id = x.userId,
                 }).ToList();
             }
+            httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}Task/Get_tasks?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}&TaskId={_taskId}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                string context = await httpResponseMessage.Content.ReadAsStringAsync();
+                tasks = JsonConvert.DeserializeObject<List<GetTaskModel>>(context)!;
+                BoxTasks.ItemsSource = tasks.ToList();
+                if (tasks.Count() == 0)
+                {
+                    TaskList.Clear();
+                    loadList();
+                }
+            }
         }
     }
 
     private List<UserListModel> UserList = new List<UserListModel>();
     private List<GetUsersProject> users = new List<GetUsersProject>();
+    private List<TaskModel> TaskList = new List<TaskModel>();
+    private List<GetTaskModel> tasks = new List<GetTaskModel>();
 
     private async void LoadTask()
     {
@@ -61,7 +77,8 @@ public partial class CreateNewTaskWindow : Window
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 GetTaskModel projects = JsonConvert.DeserializeObject<List<GetTaskModel>>(await httpResponseMessage.Content.ReadAsStringAsync())![0];
-                UserList = projects.UserList!;
+                UserList = projects.Users!;
+                TaskList = projects.Tasks!;
                 NameTaskText.Text = projects.TitleTask;
                 DescriptionTaskText.Text = projects.DescriptionTask;
                 loadList();
@@ -74,7 +91,13 @@ public partial class CreateNewTaskWindow : Window
     {
         ListUsersTask.ItemsSource = UserList.Select(x => new
         {
-            UsersName = x.Username
+            UsersName = x.Username,
+            x.Id
+        }).ToList();
+        ListTasks.ItemsSource = TaskList.Select(x => new
+        {
+            x.TitleTask,
+            x.Id
         }).ToList();
     }
 
@@ -82,7 +105,7 @@ public partial class CreateNewTaskWindow : Window
     {
         if (BoxUsersTask.SelectedIndex != -1)
         {
-            if (UserList.Where(x => x.Username == users[BoxUsersTask.SelectedIndex].username && x.Id == users[BoxUsersTask.SelectedIndex].userId).Count() == 0)
+            if (UserList.Where(x => x.Id == users[BoxUsersTask.SelectedIndex].userId).Count() == 0)
             {
                 UserListModel userListModel = new UserListModel();
                 userListModel.Id = users[BoxUsersTask.SelectedIndex].userId;
@@ -109,6 +132,15 @@ public partial class CreateNewTaskWindow : Window
                 idUsers.Add(element.Id);
             }
             editTaskModel.ExecutorId = idUsers;
+        }
+        if (TaskList != null)
+        {
+            List<int> idTasks = new List<int>();
+            foreach (var element in TaskList)
+            {
+                idTasks.Add(element.Id);
+            }
+            editTaskModel.TasksId = idTasks;
         }
         if (_taskId != -1)
         {
@@ -143,5 +175,38 @@ public partial class CreateNewTaskWindow : Window
                 ErrorText.Text = await httpResponseMessage.Content.ReadAsStringAsync();
             }
         }
+        LoadInfo();
+        await Task.Delay(1500);
+        ErrorText.Foreground = Brushes.Red;
+        ErrorText.Text = "";
+    }
+
+    private void AddTaskButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (BoxTasks.SelectedIndex != -1)
+        {
+            if (TaskList.Where(x => x.Id == tasks[BoxTasks.SelectedIndex].Id).Count() == 0)
+            {
+                TaskModel taskModel = new TaskModel();
+                taskModel.Id = tasks[BoxTasks.SelectedIndex].Id;
+                taskModel.TitleTask = tasks[BoxTasks.SelectedIndex].TitleTask;
+                TaskList.Add(taskModel);
+                loadList();
+            }
+        }
+    }
+
+    private void DropUsersFromListButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as Button).Tag!;
+        UserList.Remove(UserList.FirstOrDefault(x => x.Id == id)!);
+        loadList();
+    }
+
+    private void DropTaskFromListButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as Button).Tag!;
+        TaskList.Remove(TaskList.FirstOrDefault(x => x.Id == id)!);
+        loadList();
     }
 }

@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Formats.Tar;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Net.Mail;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
 using TaskMonagerAviaProject.Models;
@@ -73,36 +75,19 @@ namespace TaskMonagerAviaProject
         {
             using (var Client = new HttpClient())
             {
-                if (!string.IsNullOrEmpty(EmailTextReg.Text) &&
-                    !string.IsNullOrEmpty(PasswordTextReg.Text) &&
-                    !string.IsNullOrEmpty(UserNameTextReg.Text) &&
-                    !string.IsNullOrEmpty(SecondPasswordTextReg.Text))
+                RegistrationModel registrationModel = new RegistrationModel();
+                registrationModel.Email = EmailTextReg.Text;
+                registrationModel.PasswordUser = PasswordTextReg.Text;
+                registrationModel.Username = UserNameTextReg.Text;
+                HttpResponseMessage httpResponseMessage = await Client.PostAsJsonAsync($"{BaseAddress.Address}User/Registration_user", registrationModel);
+                if (httpResponseMessage.IsSuccessStatusCode)
                 {
-                    if (SecondPasswordTextReg.Text == PasswordTextReg.Text)
-                    {
-                        RegistrationModel registrationModel = new RegistrationModel();
-                        registrationModel.Email = EmailTextReg.Text;
-                        registrationModel.PasswordUser = PasswordTextReg.Text;
-                        registrationModel.Username = UserNameTextReg.Text;
-                        HttpResponseMessage httpResponseMessage = await Client.PostAsJsonAsync($"{BaseAddress.Address}User/Registration_user", registrationModel);
-                        if (httpResponseMessage.IsSuccessStatusCode)
-                        {
-                            ErrorTextReg.Foreground = Brushes.Green;
-                            ErrorTextReg.Text = await httpResponseMessage.Content.ReadAsStringAsync();
-                        }
-                        else
-                        {
-                            ErrorTextReg.Text = await httpResponseMessage.Content.ReadAsStringAsync();
-                        }
-                    }
-                    else
-                    {
-                        ErrorTextReg.Text = "Пароли не совпадают!";
-                    }
+                    ErrorTextRegEmail.Foreground = Brushes.Green;
+                    ErrorTextRegEmail.Text = await httpResponseMessage.Content.ReadAsStringAsync();
                 }
                 else
                 {
-                    ErrorTextReg.Text = "Все поля должны быть заполнены!";
+                    ErrorTextRegEmail.Text = await httpResponseMessage.Content.ReadAsStringAsync();
                 }
             }
         }
@@ -112,6 +97,7 @@ namespace TaskMonagerAviaProject
             Autorise.IsVisible = Reg;
             Reg = !Reg;
             Registration.IsVisible = Reg;
+            RegistrationEmail.IsVisible = false;
         }
 
         private void OpenWindow(string content)
@@ -131,9 +117,71 @@ namespace TaskMonagerAviaProject
             RegWindow();
         }
 
-        private void RegButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private async void RegButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            Register();
+            if (!string.IsNullOrEmpty(EmailTextReg.Text) &&
+                    !string.IsNullOrEmpty(PasswordTextReg.Text) &&
+                    !string.IsNullOrEmpty(UserNameTextReg.Text) &&
+                    !string.IsNullOrEmpty(SecondPasswordTextReg.Text))
+            {
+                if (SecondPasswordTextReg.Text == PasswordTextReg.Text)
+                {
+                    using (var Client = new HttpClient())
+                    {
+                        EmailCheckModel emailCheckModel = new EmailCheckModel();
+                        emailCheckModel.Email = EmailTextReg.Text;
+                        HttpResponseMessage httpResponseMessage = await Client.PostAsJsonAsync($"{BaseAddress.Address}User/Email_check", emailCheckModel);
+                        if (httpResponseMessage.IsSuccessStatusCode)
+                        {
+                            string context = await httpResponseMessage.Content.ReadAsStringAsync();
+                            if (Convert.ToBoolean(context))
+                            {
+                                RegistrationEmail.IsVisible = true;
+                                Registration.IsVisible = false;
+                                RegEmail();
+                            }
+                            else
+                            {
+                                ErrorTextReg.Text = "Почта уже используется!";
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ErrorTextReg.Text = "Пароли не совпадают!";
+                }
+            }
+            else
+            {
+                ErrorTextReg.Text = "Все поля должны быть заполнены!";
+            }
+        }
+
+        private int randomKode = 0;
+
+        private void RegEmail()
+        {
+
+            randomKode = new Random().Next(100000000,999999999);
+
+            MailAddress from = new MailAddress("aviataskmonager@gmail.com", "Avia task monager");
+            // кому отправляем
+            MailAddress to = new MailAddress($"{EmailTextReg.Text}");
+            // создаем объект сообщения
+            MailMessage m = new MailMessage(from, to);
+            // тема письма
+            m.Subject = "Синхронизация почты";
+            // текст письма
+            m.Body = $"<h2>Ваш код подтверждения: {randomKode}</h2>";
+            // письмо представляет код html
+            m.IsBodyHtml = true;
+            // адрес smtp-сервера и порт, с которого будем отправлять письмо
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            // логин и пароль
+            smtp.Credentials = new NetworkCredential("aviataskmonager@gmail.com", "qvcq fjdl nibv anqj");
+            smtp.EnableSsl = true;
+            smtp.Send(m);
         }
 
         private void Back(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -183,6 +231,14 @@ namespace TaskMonagerAviaProject
             {
                 PasswordImageRegSec.Source = iconsClose;
                 SecondPasswordTextReg.PasswordChar = '\0';
+            }
+        }
+
+        private void RegButtonEmail(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (NumberFromEmail.Text == randomKode.ToString())
+            {
+                Register();
             }
         }
     }

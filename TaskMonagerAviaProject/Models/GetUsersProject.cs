@@ -10,6 +10,5 @@ namespace TaskMonagerAviaProject.Models
     {
         public int userId { get; set; }
         public string? username { get; set; }
-        public string? titleRole { get; set; }
     }
 }

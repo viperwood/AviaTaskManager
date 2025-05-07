@@ -21,7 +21,7 @@
 		</ExperimentalAcrylicBorder>
 		<Panel Margin="40">
 			<Grid ColumnDefinitions="* 4* *" RowDefinitions="* 4* *">
-				<ScrollViewer Name="Autorise" Grid.Column="1" Grid.Row="1">
+				<ScrollViewer IsVisible="True" Name="Autorise" Grid.Column="1" Grid.Row="1">
 					<Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="Gray">
 						<StackPanel VerticalAlignment="Center">
 							<TextBlock Margin="10" Foreground="Black" Text="Авторизация" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="25"/>
@@ -61,6 +61,17 @@
 							
 							<TextBlock HorizontalAlignment="Center" Foreground="Red" Margin="10" Name="ErrorTextReg"/>
 							<Button Foreground="Black" Click="RegButton" Margin="10" HorizontalAlignment="Center" Content="Зарегистрироваться" Padding="40 5" BorderBrush="Black"/>
+						</StackPanel>
+					</Border>
+				</ScrollViewer>
+				<ScrollViewer IsVisible="False" Name="RegistrationEmail" Grid.Column="1" Grid.Row="1">
+					<Border CornerRadius="10" BorderBrush="Gray" BorderThickness="1" Background="Gray">
+						<StackPanel VerticalAlignment="Center">
+							<Button Foreground="Black" Click="Back" Content="❮ Назад" Margin="10" BorderBrush="Black"/>
+							<TextBlock Foreground="Black" Margin="10" Text="Регистрация" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="25"/>
+							<TextBox BorderBrush="Black" Watermark="Код подтверждения" Name="NumberFromEmail" Foreground="White" Margin="50 10" TextWrapping="Wrap" Background="Transparent" CornerRadius="0" BorderThickness="0 0 0 1"/>
+							<TextBlock HorizontalAlignment="Center" Foreground="Red" Margin="10" Name="ErrorTextRegEmail"/>
+							<Button Foreground="Black" Click="RegButtonEmail" Margin="10" HorizontalAlignment="Center" Content="Подтвердить Email" Padding="40 5" BorderBrush="Black"/>
 						</StackPanel>
 					</Border>
 				</ScrollViewer>

@@ -11,10 +11,10 @@ namespace TaskMonagerAviaProject.Models
         public int Id { get; set; }
         public string? TitleTask { get; set; }
         public string? DescriptionTask { get; set; }
-        /*public string? TitleStatus { get; set; }
-        public string? ColorStatus { get; set; }*/
+        public string? TitleStatus { get; set; }
+        public string? Color { get; set; }
         public List<TaskModel>? Tasks { get; set; }
-        public List<UserListModel>? UserList { get; set; }
+        public List<UserListModel>? Users { get; set; }
 
     }
 

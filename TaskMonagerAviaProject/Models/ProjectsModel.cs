@@ -9,7 +9,7 @@ namespace TaskMonagerAviaProject.Models
     class ProjectsModel
     {
         public Guid ProjectId { get; set; }
-        public string TitleRole { get; set; }
-        public string NameProject { get; set; }
+        public string? TitleRole { get; set; }
+        public string? NameProject { get; set; }
     }
 }

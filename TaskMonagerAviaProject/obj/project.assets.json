@@ -1467,6 +1467,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Avalonia >= 11.2.8",
+      "Avalonia.Controls.ColorPicker >= 11.2.8",
       "Avalonia.Desktop >= 11.2.8",
       "Avalonia.Diagnostics >= 11.2.8",
       "Avalonia.Fonts.Inter >= 11.2.8",
@@ -1520,6 +1521,10 @@
         "targetAlias": "net8.0",
         "dependencies": {
           "Avalonia": {
+            "target": "Package",
+            "version": "[11.2.8, )"
+          },
+          "Avalonia.Controls.ColorPicker": {
             "target": "Package",
             "version": "[11.2.8, )"
           },

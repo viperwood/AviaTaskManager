@@ -9,6 +9,7 @@
       "TaskMonagerAviaProject/1.0.0": {
         "dependencies": {
           "Avalonia": "11.2.8",
+          "Avalonia.Controls.ColorPicker": "11.2.8",
           "Avalonia.Desktop": "11.2.8",
           "Avalonia.Diagnostics": "11.2.8",
           "Avalonia.Fonts.Inter": "11.2.8",

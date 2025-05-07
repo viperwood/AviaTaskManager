@@ -8,7 +8,7 @@ namespace TaskMonagerAviaProject
 {
     public class BaseAddress
     {
-        public static string Address = "https://makzab.com/api/";
-        /*public static string Address = "https://localhost:7294/api/";*/
+        /*public static string Address = "https://makzab.com/api/";*/
+        public static string Address = "https://localhost:7294/api/";
     }
 }
