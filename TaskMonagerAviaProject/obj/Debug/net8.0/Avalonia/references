@@ -29,6 +29,7 @@ C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\Microso
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\Microsoft.VisualBasic.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\Microsoft.Win32.Primitives.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\Microsoft.Win32.Registry.dll
+C:\Users\MakZab\.nuget\packages\microsoft.win32.systemevents\9.0.4\lib\net8.0\Microsoft.Win32.SystemEvents.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\mscorlib.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\netstandard.dll
 C:\Users\MakZab\.nuget\packages\newtonsoft.json\13.0.3\lib\net6.0\Newtonsoft.Json.dll
@@ -63,6 +64,7 @@ C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Diagnostics.TraceSource.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Diagnostics.Tracing.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.dll
+C:\Users\MakZab\.nuget\packages\system.drawing.common\9.0.4\lib\net8.0\System.Drawing.Common.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Drawing.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Drawing.Primitives.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Dynamic.Runtime.dll
@@ -114,6 +116,7 @@ C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Numerics.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Numerics.Vectors.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.ObjectModel.dll
+C:\Users\MakZab\.nuget\packages\system.drawing.common\9.0.4\lib\net8.0\System.Private.Windows.Core.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Reflection.DispatchProxy.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Reflection.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.8\ref\net8.0\System.Reflection.Emit.dll

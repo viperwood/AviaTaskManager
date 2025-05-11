@@ -30,7 +30,7 @@
 					<StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
 						<TextBlock Text="Создание новой задачи" FontSize="30" HorizontalAlignment="Center"/>
 						<TextBox Name="NameTaskText" Watermark="Название задачи" Margin="10"/>
-						<TextBox Name="DescriptionTaskText" Watermark="Описание задачи" Margin="10"/>
+						<TextBox VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" Name="DescriptionTaskText" Watermark="Описание задачи" Margin="10"/>
 					</StackPanel>
 					<StackPanel Grid.Column="1" Grid.Row="2">
 						<Grid ColumnDefinitions="100 * 50">

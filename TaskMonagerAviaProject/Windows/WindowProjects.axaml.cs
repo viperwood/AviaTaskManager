@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-
+using System.Drawing.Imaging;
 using Avalonia.Media;
 using System.IO;
 using System.Linq;
@@ -14,6 +14,8 @@ using TaskMonagerAviaProject.StaticObjects;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 using Metsys.Bson;
+using static System.Net.Mime.MediaTypeNames;
+using SkiaSharp;
 
 namespace TaskMonagerAviaProject;
 
@@ -23,7 +25,7 @@ public partial class WindowProjects : Window
     {
         InitializeComponent();
         _content = File.ReadAllText(path);
-        ImageTest.Source = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Images\1667650479147654979.jpg");
+        ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Images\1667650479147654979.jpg");
     }
 
     private string path = AppDomain.CurrentDomain.BaseDirectory + @"\UserLog.json";
@@ -40,8 +42,6 @@ public partial class WindowProjects : Window
             SystemMessage.IsVisible = true;
             _content = content;
         }
-        UserName.Text = UserAutorizationTrue.userLog.Username + "#" + UserAutorizationTrue.userLog.Id;
-        ImageTest.Source = new Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Images\1667650479147654979.jpg");
         LoadProjects();
     }
 
@@ -88,6 +88,14 @@ public partial class WindowProjects : Window
 
     private async void LoadGetProposalsJoinProjects()
     {
+        UserName.Text = UserAutorizationTrue.userLog.Username + "#" + UserAutorizationTrue.userLog.Id;
+        if (UserAutorizationTrue.userLog.UserImage != null)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(UserAutorizationTrue.userLog.UserImage))
+            {
+                ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(memoryStream);
+            }
+        }
         using (var Client = new HttpClient())
         {
             HttpResponseMessage httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}Project/Get_proposals_join_projects?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}");
@@ -109,9 +117,9 @@ public partial class WindowProjects : Window
         {
             case 0:
                 Panel.IsPaneOpen = false;
-                UserInfoButton.Background = Brushes.DimGray;
-                MailBoxButton.Background = Brushes.DimGray;
-                UserFrendsButtonP.Background = Brushes.DimGray;
+                UserInfoButton.Background = Avalonia.Media.Brushes.DimGray;
+                MailBoxButton.Background = Avalonia.Media.Brushes.DimGray;
+                UserFrendsButtonP.Background = Avalonia.Media.Brushes.DimGray;
                 UserInfoPanel.IsVisible = false;
                 MailBoxPanel.IsVisible = false;
                 FrendsPanel.IsVisible = false;
@@ -119,9 +127,9 @@ public partial class WindowProjects : Window
             case 1:
                 Panel.IsPaneOpen = true;
                 Panel.OpenPaneLength = 600;
-                UserInfoButton.Background = Brushes.LightGray;
-                MailBoxButton.Background = Brushes.DimGray;
-                UserFrendsButtonP.Background = Brushes.DimGray;
+                UserInfoButton.Background = Avalonia.Media.Brushes.LightGray;
+                MailBoxButton.Background = Avalonia.Media.Brushes.DimGray;
+                UserFrendsButtonP.Background = Avalonia.Media.Brushes.DimGray;
                 UserInfoPanel.IsVisible = true;
                 MailBoxPanel.IsVisible = false;
                 FrendsPanel.IsVisible = false;
@@ -129,9 +137,9 @@ public partial class WindowProjects : Window
             case 2:
                 Panel.IsPaneOpen = true;
                 Panel.OpenPaneLength = 800;
-                UserInfoButton.Background = Brushes.DimGray;
-                MailBoxButton.Background = Brushes.LightGray;
-                UserFrendsButtonP.Background = Brushes.DimGray;
+                UserInfoButton.Background = Avalonia.Media.Brushes.DimGray;
+                MailBoxButton.Background = Avalonia.Media.Brushes.LightGray;
+                UserFrendsButtonP.Background = Avalonia.Media.Brushes.DimGray;
                 UserInfoPanel.IsVisible = false;
                 MailBoxPanel.IsVisible = true;
                 FrendsPanel.IsVisible = false;
@@ -139,9 +147,9 @@ public partial class WindowProjects : Window
             case 3:
                 Panel.IsPaneOpen = true;
                 Panel.OpenPaneLength = 600;
-                UserInfoButton.Background = Brushes.DimGray;
-                MailBoxButton.Background = Brushes.DimGray;
-                UserFrendsButtonP.Background = Brushes.LightGray;
+                UserInfoButton.Background = Avalonia.Media.Brushes.DimGray;
+                MailBoxButton.Background = Avalonia.Media.Brushes.DimGray;
+                UserFrendsButtonP.Background = Avalonia.Media.Brushes.LightGray;
                 UserInfoPanel.IsVisible = false;
                 MailBoxPanel.IsVisible = false;
                 FrendsPanel.IsVisible = true;
@@ -302,7 +310,7 @@ public partial class WindowProjects : Window
                     x.DateAndTimeMail,
                     VisibleAnsver = x.AnswerMailText != "" ? true : false,
                     HorizontalAligmentText = x.AddresseeId == IdFrend ? "Left" : "Right",
-                    ColorUser = x.AddresseeId == IdFrend ? Brushes.Gray : Brushes.DimGray
+                    ColorUser = x.AddresseeId == IdFrend ? Avalonia.Media.Brushes.Gray : Avalonia.Media.Brushes.DimGray
                 }).ToList();
                 PushTextPanel.IsVisible = true;
             }
@@ -503,11 +511,11 @@ public partial class WindowProjects : Window
                 HttpResponseMessage httpResponseMessage = await Client.PostAsJsonAsync($"{BaseAddress.Address}Frend/Proposal_frend", proposalFrendModel);
                 if (httpResponseMessage.IsSuccessStatusCode)
                 {
-                    ErrorAddFrend.Foreground = Brushes.Green;
+                    ErrorAddFrend.Foreground = Avalonia.Media.Brushes.Green;
                 }
                 else
                 {
-                    ErrorAddFrend.Foreground = Brushes.Red;
+                    ErrorAddFrend.Foreground = Avalonia.Media.Brushes.Red;
                 }
                 ErrorAddFrend.Text = await httpResponseMessage.Content.ReadAsStringAsync();
                 await Task.Delay(3000);
@@ -528,24 +536,24 @@ public partial class WindowProjects : Window
         {
             case 0:
                 PanelProject.IsPaneOpen = false;
-                ButtonProjectRightPanelInfo.Background = Brushes.DimGray;
-                ButtonProjectRightPanelMail.Background = Brushes.DimGray;
+                ButtonProjectRightPanelInfo.Background = Avalonia.Media.Brushes.DimGray;
+                ButtonProjectRightPanelMail.Background = Avalonia.Media.Brushes.DimGray;
                 PanelProjectInfo.IsVisible = false;
                 PanelProjectMails.IsVisible = false;
                 break;
             case 1:
                 PanelProject.IsPaneOpen = true;
                 PanelProject.OpenPaneLength = 600;
-                ButtonProjectRightPanelInfo.Background = Brushes.LightGray;
-                ButtonProjectRightPanelMail.Background = Brushes.DimGray;
+                ButtonProjectRightPanelInfo.Background = Avalonia.Media.Brushes.LightGray;
+                ButtonProjectRightPanelMail.Background = Avalonia.Media.Brushes.DimGray;
                 PanelProjectInfo.IsVisible = true;
                 PanelProjectMails.IsVisible = false;
                 break;
             case 2:
                 PanelProject.IsPaneOpen = true;
                 PanelProject.OpenPaneLength = 800;
-                ButtonProjectRightPanelInfo.Background = Brushes.DimGray;
-                ButtonProjectRightPanelMail.Background = Brushes.LightGray;
+                ButtonProjectRightPanelInfo.Background = Avalonia.Media.Brushes.DimGray;
+                ButtonProjectRightPanelMail.Background = Avalonia.Media.Brushes.LightGray;
                 PanelProjectInfo.IsVisible = false;
                 PanelProjectMails.IsVisible = true;
                 break;
@@ -684,5 +692,19 @@ public partial class WindowProjects : Window
     {
         CreateNewStatusTaskWindow createNewStatusTaskWindow = new CreateNewStatusTaskWindow();
         await createNewStatusTaskWindow.ShowDialog(this);
+    }
+
+    private async void EditUseutton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        EditUserLoginWindow editUserLoginWindow = new EditUserLoginWindow();
+        await editUserLoginWindow.ShowDialog(this);
+        UserName.Text = UserAutorizationTrue.userLog.Username + "#" + UserAutorizationTrue.userLog.Id;
+        if (UserAutorizationTrue.userLog.UserImage != null)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(UserAutorizationTrue.userLog.UserImage))
+            {
+                ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(memoryStream);
+            }
+        }
     }
 }

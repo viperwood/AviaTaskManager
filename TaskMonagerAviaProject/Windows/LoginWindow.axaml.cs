@@ -160,7 +160,7 @@ namespace TaskMonagerAviaProject
 
         private int randomKode = 0;
 
-        private void RegEmail()
+        private async void RegEmail()
         {
 
             randomKode = new Random().Next(100000000,999999999);
@@ -181,7 +181,7 @@ namespace TaskMonagerAviaProject
             // логин и пароль
             smtp.Credentials = new NetworkCredential("aviataskmonager@gmail.com", "qvcq fjdl nibv anqj");
             smtp.EnableSsl = true;
-            smtp.Send(m);
+            await smtp.SendMailAsync(m);
         }
 
         private void Back(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

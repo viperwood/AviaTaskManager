@@ -34,19 +34,10 @@ namespace TaskMonagerAviaProject.Models
                 }
             }
             StatusTitle = tasksProject.StatusTitle;
-            StatusColor =
-            new SolidColorBrush(Avalonia.Media.Color.FromArgb(
-                            System.Drawing.Color.FromName(
-                                tasksProject.StatusColor!).A,
-                            System.Drawing.Color.FromName(
-                                tasksProject.StatusColor!).R,
-                            System.Drawing.Color.FromName(
-                                tasksProject.StatusColor!).G,
-                            System.Drawing.Color.FromName(
-                                tasksProject.StatusColor!).B)
-                        );
-            DescriptionTask = tasksProject.DescriptionTask;
 
+            System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(tasksProject.StatusColor);
+            StatusColor = new SolidColorBrush(Avalonia.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
+            DescriptionTask = tasksProject.DescriptionTask;
         }
     }
 

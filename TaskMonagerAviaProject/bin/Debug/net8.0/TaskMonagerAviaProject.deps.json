@@ -14,7 +14,8 @@
           "Avalonia.Diagnostics": "11.2.8",
           "Avalonia.Fonts.Inter": "11.2.8",
           "Avalonia.Themes.Fluent": "11.2.8",
-          "Newtonsoft.Json": "13.0.3"
+          "Newtonsoft.Json": "13.0.3",
+          "System.Drawing.Common": "9.0.4"
         },
         "runtime": {
           "TaskMonagerAviaProject.dll": {}
@@ -335,6 +336,22 @@
           }
         }
       },
+      "Microsoft.Win32.SystemEvents/9.0.4": {
+        "runtime": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.425.16305"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.425.16305"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -408,6 +425,21 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "System.Drawing.Common/9.0.4": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "9.0.4"
+        },
+        "runtime": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.425.16312"
+          },
+          "lib/net8.0/System.Private.Windows.Core.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.425.16312"
           }
         }
       },
@@ -592,6 +624,13 @@
       "path": "microcom.runtime/0.11.0",
       "hashPath": "microcom.runtime.0.11.0.nupkg.sha512"
     },
+    "Microsoft.Win32.SystemEvents/9.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kHgtAkXhNEP8oGuAVe3Q5admxsdMlSdWE2rXcA9FfeGDZJQawPccmZgnOswgW3ugUPSJt7VH+TMQPz65mnhGSQ==",
+      "path": "microsoft.win32.systemevents/9.0.4",
+      "hashPath": "microsoft.win32.systemevents.9.0.4.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
@@ -633,6 +672,13 @@
       "sha512": "sha512-wb2kYgU7iy84nQLYZwMeJXixvK++GoIuECjU4ECaUKNuflyRlJKyiRhN1MAHswvlvzuvkrjRWlK0Za6+kYQK7w==",
       "path": "skiasharp.nativeassets.win32/2.88.9",
       "hashPath": "skiasharp.nativeassets.win32.2.88.9.nupkg.sha512"
+    },
+    "System.Drawing.Common/9.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SbtusMUT1bCxZ14904ZPo2GZyelze0rwUni9wXrp8KX9Zlsda8idqpxra1RBvOA85WM0wW+fCI4GLrlCTYiE6A==",
+      "path": "system.drawing.common/9.0.4",
+      "hashPath": "system.drawing.common.9.0.4.nupkg.sha512"
     },
     "System.IO.Pipelines/8.0.0": {
       "type": "package",

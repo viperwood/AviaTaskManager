@@ -29,7 +29,7 @@
 					<TextBlock Text="Создание нового статуса" FontSize="30" HorizontalAlignment="Center"/>
 					<TextBox Name="NameStatusText" Watermark="Название статуса" Margin="10"/>
 					<ColorPicker Name="ColorStatus"/>
-					<Button Content="Сохранить" Click="SaveNewStatusTaskButton" Margin="10" HorizontalAlignment="Center"/>
+					<Button Name="aaaa" Content="Сохранить" Click="SaveNewStatusTaskButton" Margin="10" HorizontalAlignment="Center"/>
 					<TextBlock HorizontalAlignment="Center" Name="ErrorText" Margin="10"/>
 				</StackPanel>
 			</Grid>

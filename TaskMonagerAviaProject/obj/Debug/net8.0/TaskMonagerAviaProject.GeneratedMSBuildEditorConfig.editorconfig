@@ -76,6 +76,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/CreateRoleProjectWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/EditUserLoginWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/MakZab/source/repos/TaskMonagerAviaProject/TaskMonagerAviaProject/Windows/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
