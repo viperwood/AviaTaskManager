@@ -16,6 +16,8 @@ using System.Net.Http.Json;
 using Metsys.Bson;
 using static System.Net.Mime.MediaTypeNames;
 using SkiaSharp;
+using Avalonia.Input;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TaskMonagerAviaProject;
 
@@ -25,7 +27,9 @@ public partial class WindowProjects : Window
     {
         InitializeComponent();
         _content = File.ReadAllText(path);
-        ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Images\1667650479147654979.jpg");
+        ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Images\1667650479147654979.jpg");/*
+        loadTestInfo();*/
+        AddHandler(DragDrop.DropEvent, Drop);
     }
 
     private string path = AppDomain.CurrentDomain.BaseDirectory + @"\UserLog.json";
@@ -42,7 +46,9 @@ public partial class WindowProjects : Window
             SystemMessage.IsVisible = true;
             _content = content;
         }
-        LoadProjects();
+        LoadProjects();/*
+        loadTestInfo();*/
+        AddHandler(DragDrop.DropEvent, Drop);
     }
 
     private void YesSaveButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -207,6 +213,8 @@ public partial class WindowProjects : Window
         UserAutorizationTrue.ProjectId = (Guid)(sender as Border).Tag!;
         LoadTasks();
         ProjectVisible.IsVisible = true;
+        MenuButtonsProject.IsVisible = true;
+        TasksSprintsMenu();
     }
 
     private async void LoadTasks()
@@ -220,7 +228,7 @@ public partial class WindowProjects : Window
                 List<GetTasksModel> tasksModel = JsonConvert.DeserializeObject<List<TasksProject>>(context)!.Select(x => new GetTasksModel(x)).ToList();
                 ListTasks.ItemsSource = tasksModel.ToList();
                 ProjectVisible.IsVisible = true;
-                LoadInfoProject();
+                RightProjectPanel();
             }
         }
     }
@@ -258,6 +266,7 @@ public partial class WindowProjects : Window
 
     private List<GetFrendsList> projects = new List<GetFrendsList>();
     private List<GetMalsUsersModel> malsUsers = new List<GetMalsUsersModel>();
+    private List<GetComentProjectModel> malsUsersProject = new List<GetComentProjectModel>();
 
     private async void LoadFrends()
     {
@@ -367,7 +376,7 @@ public partial class WindowProjects : Window
         }
     }
 
-    private async void EditMailTextButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void EditMailTextButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (!OpenPanelEditOrAnswer)
         {
@@ -548,6 +557,7 @@ public partial class WindowProjects : Window
                 ButtonProjectRightPanelMail.Background = Avalonia.Media.Brushes.DimGray;
                 PanelProjectInfo.IsVisible = true;
                 PanelProjectMails.IsVisible = false;
+                LoadInfoProject();
                 break;
             case 2:
                 PanelProject.IsPaneOpen = true;
@@ -556,6 +566,7 @@ public partial class WindowProjects : Window
                 ButtonProjectRightPanelMail.Background = Avalonia.Media.Brushes.LightGray;
                 PanelProjectInfo.IsVisible = false;
                 PanelProjectMails.IsVisible = true;
+                LoadMailProject();
                 break;
         }
     }
@@ -569,7 +580,6 @@ public partial class WindowProjects : Window
         else
         {
             _buttonRightProjectPanel = 1;
-            LoadInfoProject();
         }
         RightProjectPanel();
     }
@@ -586,6 +596,256 @@ public partial class WindowProjects : Window
         }
         RightProjectPanel();
     }
+
+
+    private async void LoadMailProject()
+    {
+        using (var Client = new HttpClient())
+        {
+            AcceptanceCancelModel acceptanceCancelModel = new AcceptanceCancelModel();
+
+            HttpResponseMessage httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}ComentsProjects/Conclusion_coment_project?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                NameProjectMail.Text = projectsList.FirstOrDefault(x => x.ProjectId == UserAutorizationTrue.ProjectId)!.NameProject;
+                string context = await httpResponseMessage.Content.ReadAsStringAsync();
+                malsUsersProject = JsonConvert.DeserializeObject<List<GetComentProjectModel>>(context)!.ToList();
+                malsUsersProject = malsUsersProject.OrderBy(x => x.DateAndTimeComent).ToList();
+                ListTextMailsProject.ItemsSource = malsUsersProject.Select(x => new
+                {
+                    x.Id,
+                    x.AnswerMailId,
+                    VisibleAnsver = x.AnswerMailText != "" ? true : false,
+                    AnswerMailText = $"{x.AnswerMailUser}: «" + x.AnswerMailText + "»",
+                    x.TextMail,
+                    x.Username,
+                    x.AnswerMailUser,
+                    TitleStatusDateAndTimeComent = x.TitleStatus + " " + x.DateAndTimeComent,
+                    HorizontalAligmentText = x.UserId == UserAutorizationTrue.userLog.Id ? "Right" : "Left",
+                    ColorUser = x.UserId == UserAutorizationTrue.userLog.Id ? Avalonia.Media.Brushes.DimGray : Avalonia.Media.Brushes.Gray
+                }).ToList();
+
+                httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}Project/Get_users_project?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}");
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    context = await httpResponseMessage.Content.ReadAsStringAsync();
+                    List<GetUsersProjectModel> getUsersProjectModel = JsonConvert.DeserializeObject<List<GetUsersProjectModel>>(context)!.ToList();
+                    ListUsersProjects.ItemsSource = getUsersProjectModel.ToList();
+                }
+            }
+        }
+    }
+
+    private void AnswerMailTextProjectButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (!OpenPanelEditOrAnswerProject)
+        {
+            idAnswerMailProjectText = (int)(sender as MenuItem).Tag!;
+            PanelAnswerProject.IsVisible = true;
+            OpenPanelEditOrAnswerProject = true;
+            GetComentProjectModel getMalsUsersModel = malsUsersProject.FirstOrDefault(x => x.Id == idAnswerMailProjectText)!;
+            AnswerTextMailProject.Text = getMalsUsersModel.TextMail;
+            AnswerTitleStatusProject.Text = getMalsUsersModel.TitleStatus;
+            UsernameTextMailProject.Text = getMalsUsersModel.Username;
+            AnswerDateAndTimeMailProject.Text = getMalsUsersModel.DateAndTimeComent.ToString();
+        }
+    }
+
+    private void ProjectCloseAnswer(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        PanelAnswerProject.IsVisible = false;
+        OpenPanelEditOrAnswerProject = false;
+        idAnswerMailProjectText = 0;
+    }
+
+    private void ProjectCloseEdit(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        PanelEditTextProject.IsVisible = false;
+        OpenPanelEditOrAnswerProject = false;
+        idEditMailProjectText = 0;
+    }
+
+    private int idEditMailProjectText = 0;
+    private int idAnswerMailProjectText = 0;
+    private bool OpenPanelEditOrAnswerProject = false;
+
+    private async void PushTextMailProjectButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (!string.IsNullOrEmpty(PushTextMail.Text))
+        {
+            using (var Client = new HttpClient())
+            {
+                if (idEditMailProjectText == 0)
+                {
+                    CreateComentProjectModel createComentProjectModel = new CreateComentProjectModel();
+                    createComentProjectModel.Email = UserAutorizationTrue.userLog.Email;
+                    createComentProjectModel.Password = UserAutorizationTrue.userLog.Password;
+                    createComentProjectModel.TextMail = PushTextMail.Text!;
+                    createComentProjectModel.ProjectId = UserAutorizationTrue.ProjectId;
+                    createComentProjectModel.AnswerId = idAnswerMailProjectText!;
+                    HttpResponseMessage httpResponseMessage = await Client.PostAsJsonAsync($"{BaseAddress.Address}ComentsProjects/Create_coment_project", createComentProjectModel);
+                    if (httpResponseMessage.IsSuccessStatusCode)
+                    {
+                        LoadMailProject();
+                        PushTextMail.Text = "";
+                        idAnswerMailProjectText = 0;
+                        PanelAnswerProject.IsVisible = false;
+                        OpenPanelEditOrAnswerProject = false;
+                    }
+                }
+                else
+                {
+                    EditingComentProjectModel editingComentProjectModel = new EditingComentProjectModel();
+                    editingComentProjectModel.MessageId = idEditMailProjectText;
+                    editingComentProjectModel.TextMail = PushTextMail.Text!;
+                    editingComentProjectModel.ProjectId = UserAutorizationTrue.ProjectId;
+                    editingComentProjectModel.Email = UserAutorizationTrue.userLog.Email;
+                    editingComentProjectModel.Password = UserAutorizationTrue.userLog.Password;
+                    HttpResponseMessage httpResponseMessage = await Client.PutAsJsonAsync($"{BaseAddress.Address}ComentsProjects/Editing_coment_project", editingComentProjectModel);
+                    if (httpResponseMessage.IsSuccessStatusCode)
+                    {
+                        LoadMailProject();
+                        PushTextMail.Text = "";
+                        idEditMailProjectText = 0;
+                        PanelEditTextProject.IsVisible = false;
+                        OpenPanelEditOrAnswerProject = false;
+                    }
+                }
+
+            }
+        }
+    }
+
+    private void EditMailTextProjectButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (!OpenPanelEditOrAnswerProject)
+        {
+            idEditMailProjectText = (int)(sender as MenuItem).Tag!;
+            if (malsUsersProject.Where(x => x.Id == idEditMailProjectText && x.UserId != UserAutorizationTrue.userLog.Id).Count() == 0)
+            {
+                PanelEditTextProject.IsVisible = true;
+                OpenPanelEditOrAnswerProject = true;
+                PushTextMail.Text = malsUsersProject.FirstOrDefault(x => x.Id == idEditMailProjectText)!.TextMail;
+            }
+        }
+    }
+
+    private async void DelitMailTextProjectButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as MenuItem).Tag!;
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.DeleteAsync($"{BaseAddress.Address}ComentsProjects/Delete_coment_project?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&MessageId={id}&ProjectId={UserAutorizationTrue.ProjectId}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                LoadMailProject();
+            }
+        }
+    }
+
+    private async void Loadsprints()
+    {
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}Sprint/Get_sprints?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                string context = await httpResponseMessage.Content.ReadAsStringAsync();
+                List<SprintsProjectModel> sprintsProjectModels = JsonConvert.DeserializeObject<List<SprintsProjectModel>>(context)!.ToList();
+                ListSprintsproject.ItemsSource = sprintsProjectModels.Select(x => new
+                {
+                    x.Id,
+                    Date = $"С {x.DateStart} по {x.DateEnd}",
+                    Status = x.TitleStatus
+                }).ToList();
+            }
+        }
+    }
+    private async void Loadsprint(int Id)
+    {
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}Sprint/Get_sprint?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}&SprintId={Id}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                string context = await httpResponseMessage.Content.ReadAsStringAsync();
+                List<GetSprintModel> getSprintModels = JsonConvert.DeserializeObject<List<GetSprintModel>>(context)!.ToList();
+                ListStatusesSprint.ItemsSource = getSprintModels.Select(x => new
+                {
+                    x.Id,
+                    x.TitleStatus,
+                    Color = new SolidColorBrush(Avalonia.Media.Color.FromArgb(System.Drawing.ColorTranslator.FromHtml(x.Color).A, System.Drawing.ColorTranslator.FromHtml(x.Color).R, System.Drawing.ColorTranslator.FromHtml(x.Color).G, System.Drawing.ColorTranslator.FromHtml(x.Color).B)),
+                    ListTasks = x.Tasks!.Select(y => new
+                    {
+                        IdTask = y.Id,
+                        y.TitleTask
+                    })
+                }).ToList();
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Действие тащить
+    async void DoDrag(object? sender, PointerPressedEventArgs e)
+    {
+        //Результат действия тащить
+        var result = await DragDrop.DoDragDrop(e, new DataObject(), DragDropEffects.Move);
+        switch (result)
+        {
+            case DragDropEffects.Move:
+                int Id = (int)(sender as Control).Tag!;
+                break;
+            case DragDropEffects.None:
+                break;
+        }
+    }
+    //Действие бросить
+    void Drop(object? sender, DragEventArgs e)
+    {
+        var selectElement = e.Source as Control;
+        do
+        {
+            if (selectElement!.GetType().Name == "Grid")
+            {
+                if (selectElement.Tag != null)
+                {
+                    break;
+                }
+            }
+            selectElement = selectElement.Parent as Control;
+        }
+        while (true);
+        int Id = (int)selectElement.Tag;
+        e.DragEffects = DragDropEffects.Move;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private async void LoadInfoProject()
     {
@@ -706,5 +966,52 @@ public partial class WindowProjects : Window
                 ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(memoryStream);
             }
         }
+    }
+
+    private void TasksSprintsMenu()
+    {
+        switch (ProjectMenuButtons)
+        {
+            case 0:
+
+                break;
+            case 1:
+                TasksButtonMenu.Background = Avalonia.Media.Brushes.LightGray;
+                SprintsButtonMenu.Background = Avalonia.Media.Brushes.DimGray;
+                TaskMenu.IsVisible = true;
+                SprintMenu.IsVisible = false;
+                ListTasks.IsVisible = true;
+                SprintsList.IsVisible = false;
+                break;
+            case 2:
+                SprintsButtonMenu.Background = Avalonia.Media.Brushes.LightGray;
+                TasksButtonMenu.Background = Avalonia.Media.Brushes.DimGray;
+                TaskMenu.IsVisible = false;
+                SprintMenu.IsVisible = true;
+                ListTasks.IsVisible = false;
+                SprintsList.IsVisible = true;
+                Loadsprints();
+                break;
+        }
+    }
+
+    private byte ProjectMenuButtons = 1;
+
+    private void SprintsButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        ProjectMenuButtons = 2;
+        TasksSprintsMenu();
+    }
+
+    private void TasksButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        ProjectMenuButtons = 1;
+        TasksSprintsMenu();
+    }
+
+    private void SprintLoadButton(object? sender, Avalonia.Input.TappedEventArgs e)
+    {
+        int id = (int)(sender as Border).Tag!;
+        Loadsprint(id);
     }
 }

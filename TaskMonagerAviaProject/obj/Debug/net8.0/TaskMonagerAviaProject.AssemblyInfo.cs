@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TaskMonagerAviaProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d5e92223b9bcfb34b8fe51d72b27886716aaedbb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39947c85775b07b0f7b9e7f9093f19cb705ee69b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TaskMonagerAviaProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TaskMonagerAviaProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

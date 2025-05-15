@@ -13,17 +13,21 @@
 	<Grid ColumnDefinitions="* * * * *" Background="#383838" RowDefinitions=" 60 * * * * * *">
 
 
-		<StackPanel Background="#1e1e1e" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6">
-			<Grid ColumnDefinitions="60 170 3* *">
+			<Grid ColumnDefinitions="230 3* *" Background="#1e1e1e" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6">
 				<Image Grid.Column="0" Source="\Images\Logo.png" Margin="10 0 0 0"/>
-				<StackPanel Orientation="Horizontal" Grid.Column="2">
-					<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10 0">
+				<StackPanel IsVisible="False" Name="MenuButtonsProject" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="1">
+					<Button Name="TasksButtonMenu" Click="TasksButton" BorderBrush="Gray" BorderThickness="1 1 1 0" CornerRadius="10 10 0 0" Margin="10 0">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="Список задач" FontSize="15" Margin="40 0"/>
+						</StackPanel>
+					</Button>
+					<Button Name="SprintsButtonMenu" Click="SprintsButton" BorderThickness="1 1 1 0" CornerRadius="10 10 0 0" BorderBrush="Gray" Margin="10 0">
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Text="Спринты" FontSize="15" Margin="40 0"/>
 						</StackPanel>
 					</Button>
 				</StackPanel>
-				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="3">
+				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
 					<Button Margin="10" Click="AddFrendButtonPanel">
 						<PathIcon Foreground="White" Data="{StaticResource person_add_regular}"/>
 					</Button>
@@ -35,7 +39,6 @@
 					</Button>
 				</StackPanel>
 			</Grid>
-		</StackPanel>
 
 
 		<SplitView PanePlacement="Left" Grid.Column="0" Name="PanelProjects" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" IsPaneOpen="True"
@@ -51,12 +54,12 @@
 							</StackPanel>
 						</Button>
 						<StackPanel Grid.Column="0" Grid.Row="1">
-							<Button VerticalAlignment="Top" Margin="5">
+							<!--<Button VerticalAlignment="Top" Margin="5">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="Главная" VerticalAlignment="Center" Margin="0 0 10 0"/>
 									<PathIcon Foreground="White" Data="{StaticResource home_regular}"/>
 								</StackPanel>
-							</Button>
+							</Button>-->
 							<Button VerticalAlignment="Center" Margin="5">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="Моя работа" VerticalAlignment="Center" Margin="0 0 10 0"/>
@@ -94,7 +97,7 @@
 				<Grid Name="ProjectVisible" IsVisible="False" Background="#383838" ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
 					<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
 						<Grid>
-							<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+							<ScrollViewer Name="TaskMenu" IsVisible="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 								<StackPanel Orientation="Horizontal">
 									<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10">
 										<StackPanel Orientation="Horizontal">
@@ -102,6 +105,22 @@
 											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
 										</StackPanel>
 									</Button>
+									<!--<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Создать спринт" Margin="0 0 10 0"/>
+											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+										</StackPanel>
+									</Button>-->
+									<Button Click="NewStatusTaskButton" BorderBrush="Gray" Margin="10">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="Добавить новый статус" Margin="0 0 10 0"/>
+											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
+										</StackPanel>
+									</Button>
+								</StackPanel>
+							</ScrollViewer>
+							<ScrollViewer HorizontalScrollBarVisibility="Auto" Name="SprintMenu" VerticalScrollBarVisibility="Disabled">
+								<StackPanel Orientation="Horizontal">
 									<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10">
 										<StackPanel Orientation="Horizontal">
 											<TextBlock Text="Создать спринт" Margin="0 0 10 0"/>
@@ -118,10 +137,11 @@
 							</ScrollViewer>
 						</Grid>
 					</Border>
-					
-					
+
+					<!--Таски-->
 					<TreeView Grid.Column="1" Grid.Row="1"
-						Margin="50"
+						  Margin="50"
+						  IsVisible="False"
 						  Name="ListTasks"
 						  SelectionMode="Single">
 						<TreeView.ItemTemplate>
@@ -150,6 +170,51 @@
 							</TreeDataTemplate>
 						</TreeView.ItemTemplate>
 					</TreeView>
+					<!--Спринты-->
+					<Grid ColumnDefinitions="* 4 3*" Name="SprintsList" IsVisible="False" Grid.Column="1" Grid.Row="1" Background="Aqua">
+						<ListBox Grid.Column="0" Name="ListSprintsproject">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border Background="Transparent" Tapped="SprintLoadButton" Tag="{Binding Id}" CornerRadius="10" BorderBrush="White" BorderThickness="1">
+										<StackPanel Margin="10">
+											<TextBlock Text="{Binding Date}"/>
+											<TextBlock Text="{Binding Status}"/>
+										</StackPanel>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+						<GridSplitter Grid.Column="1" Grid.Row="1" Background="LightGray" ResizeDirection="Columns"/>
+						<ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="2">
+							<ListBox Name="ListStatusesSprint">
+								<ListBox.ItemsPanel>
+									<ItemsPanelTemplate>
+										<DockPanel HorizontalAlignment="Left"/>
+									</ItemsPanelTemplate>
+								</ListBox.ItemsPanel>
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<Grid DragDrop.AllowDrop="True" Tag="{Binding Id}" RowDefinitions="50 *" Background="{Binding Color}">
+											<Border Grid.Row="0" VerticalAlignment="Center" Background="#1e1e1e" CornerRadius="10" BorderBrush="Gray" BorderThickness="1">
+												<TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding TitleStatus}"/>
+											</Border>
+											<ListBox ItemsSource="{Binding ListTasks}" MinWidth="150" Height="NaN" Margin="10" Grid.Row="1">
+												<ListBox.ItemTemplate>
+													<DataTemplate>
+														<Border PointerPressed="DoDrag" Background="Transparent" Name="DragMeElement" Tag="{Binding IdTask}" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+															<StackPanel Margin="10">
+																<TextBlock Text="{Binding TitleTask}" HorizontalAlignment="Center"/>
+															</StackPanel>
+														</Border>
+													</DataTemplate>
+												</ListBox.ItemTemplate>
+											</ListBox>
+										</Grid>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+						</ScrollViewer>
+					</Grid>
 					<!--!!!!!!!!!!!!-->
 					<SplitView PanePlacement="Right" Grid.Column="1" Name="PanelProject" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7"
 						DisplayMode="CompactInline" PaneBackground="#1e1e1e" IsPaneOpen="False"
@@ -235,9 +300,103 @@
 										</Grid>
 									</ScrollViewer>
 								</Grid>
-								<!--!!!!!!!!!!!!-->
-								<StackPanel Name="PanelProjectMails" Grid.Column="1">
-								</StackPanel>
+								<!--Переписки в проекте-->
+									<Grid Name="PanelProjectMails" Grid.Column="1" ColumnDefinitions="20 4* 4 2* 50" RowDefinitions="20 * 20" IsVisible="False" Margin="10">
+										<ListBox CornerRadius="0 10 10 0" Name="ListUsersProjects" Background="DimGray" Grid.Column="3" Grid.Row="1">
+											<ListBox.ItemTemplate>
+												<DataTemplate>
+													<Border BorderBrush="White" BorderThickness="1" CornerRadius="10">
+														<Grid ColumnDefinitions="* 1 *">
+															<TextBlock Grid.Column="0" TextWrapping="Wrap" Text="{Binding Username}" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center"/>
+															<StackPanel Grid.Column="1" Background="White" VerticalAlignment="Stretch"/>
+															<TextBlock Grid.Column="2" TextWrapping="Wrap" Text="{Binding TitleRole}" Margin="10"/>
+														</Grid>
+													</Border>
+												</DataTemplate>
+											</ListBox.ItemTemplate>
+										</ListBox>
+										<GridSplitter Grid.Column="2" Grid.Row="1" Background="LightGray" ResizeDirection="Columns"/>
+										<Grid RowDefinitions="50 * 0.1*" Grid.Column="1" Grid.Row="1">
+											<Border Grid.Row="0" CornerRadius="10 0 0 0" Background="DimGray">
+												<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="NameProjectMail" FontSize="20"/>
+											</Border>
+											<ScrollViewer Grid.Row="1">
+												<ListBox Name="ListTextMailsProject" Background="Gray">
+													<ListBox.ItemTemplate>
+														<DataTemplate>
+															<Border Background="{Binding ColorUser}" MaxWidth="300" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
+																<Border.ContextMenu>
+																	<ContextMenu>
+																		<MenuItem Tag="{Binding Id}" Click="EditMailTextProjectButton" Header="Редактировать"/>
+																		<MenuItem Tag="{Binding Id}" Click="AnswerMailTextProjectButton" Header="Ответить"/>
+																		<MenuItem Tag="{Binding Id}" Click="DelitMailTextProjectButton" Header="Удалить"/>
+																	</ContextMenu>
+																</Border.ContextMenu>
+																<StackPanel>
+																	<StackPanel>
+																		<TextBlock TextWrapping="Wrap" Text="{Binding Username}" Margin="10 5"/>
+																		<Border BorderBrush="WhiteSmoke" BorderThickness="0 1 0 0"/>
+																	</StackPanel>
+																	<StackPanel Tag="{Binding AnswerMailId}" IsVisible="{Binding VisibleAnsver}">
+																		<TextBlock TextWrapping="Wrap" Text="{Binding AnswerMailText}" Margin="10 5"/>
+																		<Border BorderBrush="WhiteSmoke" BorderThickness="0 1 0 0"/>
+																	</StackPanel>
+																	<StackPanel>
+																		<TextBlock TextWrapping="Wrap" Text="{Binding TextMail}" Margin="10 5"/>
+																		<TextBlock Margin="10 5" TextWrapping="Wrap" Foreground="Gainsboro" Text="{Binding TitleStatusDateAndTimeComent}"/>
+																	</StackPanel>
+																</StackPanel>
+															</Border>
+														</DataTemplate>
+													</ListBox.ItemTemplate>
+												</ListBox>
+											</ScrollViewer>
+											<Border Grid.Row="1" Background="Gray" IsVisible="False" Name="PanelAnswerProject" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
+												<ScrollViewer>
+													<StackPanel>
+														<Grid>
+															<Border Margin="10 10 50 10" Background="DimGray" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
+																<StackPanel>
+																	<StackPanel>
+																		<TextBlock TextWrapping="Wrap" Name="UsernameTextMailProject" Margin="10 5"/>
+																		<Border BorderBrush="WhiteSmoke" BorderThickness="0 1 0 0"/>
+																	</StackPanel>
+																	<TextBlock TextWrapping="Wrap" Name="AnswerTextMailProject" Margin="10 5"/>
+																	<StackPanel Margin="10 5" Orientation="Horizontal">
+																		<TextBlock TextWrapping="Wrap" Name="AnswerTitleStatusProject" Foreground="Gainsboro" Margin="0 0 10 0"/>
+																		<TextBlock TextWrapping="Wrap" Name="AnswerDateAndTimeMailProject" Foreground="Gainsboro"/>
+																	</StackPanel>
+																</StackPanel>
+															</Border>
+															<Button VerticalAlignment="Top" Click="ProjectCloseAnswer" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
+																<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
+															</Button>
+														</Grid>
+													</StackPanel>
+												</ScrollViewer>
+											</Border>
+											<Border Grid.Row="1" Background="Gray" IsVisible="False" Name="PanelEditTextProject" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
+												<ScrollViewer>
+													<StackPanel>
+														<Grid>
+															<TextBlock Text="Редактирование" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+															<Button VerticalAlignment="Top" Click="ProjectCloseEdit" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
+																<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
+															</Button>
+														</Grid>
+													</StackPanel>
+												</ScrollViewer>
+											</Border>
+											<Border Grid.Row="2" CornerRadius="0 0 0 10" Background="DimGray">
+												<Grid Name="PushTextPanelProject">
+													<Button VerticalAlignment="Stretch" Click="PushTextMailProjectButton" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="0 10 10 0" BorderBrush="Gray">
+														<PathIcon Foreground="White" Data="{StaticResource caret_right_regular}"/>
+													</Button>
+													<TextBox AcceptsReturn="True" CornerRadius="10 0 0 10" BorderBrush="Black" Foreground="White" Name="PushTextMail" Margin="10 10 50 10" TextWrapping="Wrap" Watermark="Сообщение" />
+												</Grid>
+											</Border>
+										</Grid>
+									</Grid>
 							</Grid>
 						</SplitView.Pane>
 					</SplitView>
