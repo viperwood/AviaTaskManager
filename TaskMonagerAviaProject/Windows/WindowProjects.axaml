@@ -60,7 +60,7 @@
 									<PathIcon Foreground="White" Data="{StaticResource home_regular}"/>
 								</StackPanel>
 							</Button>-->
-							<Button VerticalAlignment="Center" Margin="5">
+							<Button VerticalAlignment="Center" Margin="5" Click="MyTasksWindowButton">
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="Моя работа" VerticalAlignment="Center" Margin="0 0 10 0"/>
 									<PathIcon Foreground="White" Data="{StaticResource line_horizontal_3_regular}"/>
@@ -78,6 +78,11 @@
 								<ListBox.ItemTemplate>
 									<DataTemplate>
 										<Border Tapped="OpenProject" Background="LightGray" CornerRadius="10" Tag="{Binding Id}" BorderBrush="Gray" BorderThickness="1">
+											<Border.ContextMenu>
+												<ContextMenu>
+													<MenuItem Header="Выйти из проекта" Tag="{Binding Id}" Click="ExitProjectButton"/>
+												</ContextMenu>
+											</Border.ContextMenu>
 											<StackPanel Margin="5">
 												<TextBlock Foreground="Black" FontSize="20" Text="{Binding ProjectName}"/>
 												<TextBlock Foreground="Black" Text="{Binding RoleInProject}"/>
@@ -94,8 +99,8 @@
 			
 			
 			<SplitView.Content>
-				<Grid Name="ProjectVisible" IsVisible="False" Background="#383838" ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
-					<Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
+				<Grid Name="ProjectVisible" IsVisible="True" Background="#383838" ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
+					<Border Name="TopButtonVisible" IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
 						<Grid>
 							<ScrollViewer Name="TaskMenu" IsVisible="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 								<StackPanel Orientation="Horizontal">
@@ -121,7 +126,7 @@
 							</ScrollViewer>
 							<ScrollViewer HorizontalScrollBarVisibility="Auto" Name="SprintMenu" VerticalScrollBarVisibility="Disabled">
 								<StackPanel Orientation="Horizontal">
-									<Button Click="NewTaskButton" BorderBrush="Gray" Margin="10">
+									<Button Click="NewSprintButton" BorderBrush="Gray" Margin="10">
 										<StackPanel Orientation="Horizontal">
 											<TextBlock Text="Создать спринт" Margin="0 0 10 0"/>
 											<PathIcon Foreground="White" Data="{StaticResource add_square_regular}"/>
@@ -137,7 +142,6 @@
 							</ScrollViewer>
 						</Grid>
 					</Border>
-
 					<!--Таски-->
 					<TreeView Grid.Column="1" Grid.Row="1"
 						  Margin="50"
@@ -147,6 +151,11 @@
 						<TreeView.ItemTemplate>
 							<TreeDataTemplate ItemsSource="{Binding Subtask}">
 								<Border CornerRadius="10" BorderBrush="White" BorderThickness="1">
+									<Border.ContextMenu>
+										<ContextMenu>
+											<MenuItem Tag="{Binding Id}" Click="DeleteTaskButton" Header="Удалить"/>
+										</ContextMenu>
+									</Border.ContextMenu>
 									<Grid ColumnDefinitions="* 5* * *">
 										<Border CornerRadius="10 0 0 10" Background="{Binding StatusColor}" Grid.Column="0">
 											<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding StatusTitle}"/>
@@ -171,11 +180,17 @@
 						</TreeView.ItemTemplate>
 					</TreeView>
 					<!--Спринты-->
-					<Grid ColumnDefinitions="* 4 3*" Name="SprintsList" IsVisible="False" Grid.Column="1" Grid.Row="1" Background="Aqua">
+					<Grid ColumnDefinitions="* 4 3*" Name="SprintsList" IsVisible="False" Grid.Column="1" Grid.Row="1">
 						<ListBox Grid.Column="0" Name="ListSprintsproject">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<Border Background="Transparent" Tapped="SprintLoadButton" Tag="{Binding Id}" CornerRadius="10" BorderBrush="White" BorderThickness="1">
+										<Border.ContextMenu>
+											<ContextMenu>
+												<MenuItem Tag="{Binding Id}" Click="DeleteSprintButton" Header="Удалить"/>
+												<MenuItem Tag="{Binding Id}" Click="EditSprintButton" Header="Редактировать"/>
+											</ContextMenu>
+										</Border.ContextMenu>
 										<StackPanel Margin="10">
 											<TextBlock Text="{Binding Date}"/>
 											<TextBlock Text="{Binding Status}"/>
@@ -186,7 +201,7 @@
 						</ListBox>
 						<GridSplitter Grid.Column="1" Grid.Row="1" Background="LightGray" ResizeDirection="Columns"/>
 						<ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="2">
-							<ListBox Name="ListStatusesSprint">
+							<ListBox Name="ListStatusesSprint" IsVisible="True">
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
 										<DockPanel HorizontalAlignment="Left"/>
@@ -195,6 +210,11 @@
 								<ListBox.ItemTemplate>
 									<DataTemplate>
 										<Grid DragDrop.AllowDrop="True" Tag="{Binding Id}" RowDefinitions="50 *" Background="{Binding Color}">
+											<Grid.ContextMenu>
+												<ContextMenu>
+													<MenuItem Tag="{Binding Id}" Click="DeleteStatusButton" Header="Удалить"/>
+												</ContextMenu>
+											</Grid.ContextMenu>
 											<Border Grid.Row="0" VerticalAlignment="Center" Background="#1e1e1e" CornerRadius="10" BorderBrush="Gray" BorderThickness="1">
 												<TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding TitleStatus}"/>
 											</Border>
@@ -215,9 +235,12 @@
 							</ListBox>
 						</ScrollViewer>
 					</Grid>
+					<StackPanel Grid.Column="1" VerticalAlignment="Center" Grid.Row="2">
+						<TextBlock Name="TimerText"/>
+					</StackPanel>
 					<!--!!!!!!!!!!!!-->
 					<SplitView PanePlacement="Right" Grid.Column="1" Name="PanelProject" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7"
-						DisplayMode="CompactInline" PaneBackground="#1e1e1e" IsPaneOpen="False"
+						DisplayMode="Overlay" PaneBackground="#1e1e1e" IsPaneOpen="False"
 						OpenPaneLength="600">
 						<SplitView.Pane>
 							<Grid ColumnDefinitions="60 *">
@@ -401,6 +424,38 @@
 						</SplitView.Pane>
 					</SplitView>
 					<!--!!!!!!!!!!!!-->
+					<ScrollViewer Name="ListTasksUserWindow" IsVisible="False" Grid.Column="1" Grid.Row="1">
+						<ListBox Name="ListTasksUser">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<Border BorderBrush="White" CornerRadius="10" BorderThickness="1" Margin="10">
+										<Grid RowDefinitions="50 *">
+											<Border Grid.Row="0" Margin="10" VerticalAlignment="Center" Background="#1e1e1e" CornerRadius="10" BorderBrush="Gray" BorderThickness="1">
+												<TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding NameProject}"/>
+											</Border>
+											<ListBox ItemsSource="{Binding ListTasksUserInList}" Width="NaN" Margin="10" Grid.Row="1">
+												<ListBox.ItemTemplate>
+													<DataTemplate>
+														<Border CornerRadius="10" BorderBrush="White" BorderThickness="1">
+															<Grid ColumnDefinitions="* 7*">
+																<Border CornerRadius="10 0 0 10" Background="{Binding ColorTask}" Grid.Column="0">
+																	<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding TitleStatus}"/>
+																</Border>
+																<StackPanel Grid.Column="1" HorizontalAlignment="Center">
+																	<TextBlock Text="{Binding TitleTask}"/>
+																	<TextBlock Text="{Binding DescriptionTask}"/>
+																</StackPanel>
+															</Grid>
+														</Border>
+													</DataTemplate>
+												</ListBox.ItemTemplate>
+											</ListBox>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</ScrollViewer>
 				</Grid>
 			</SplitView.Content>
 		</SplitView>

@@ -18,6 +18,8 @@ using static System.Net.Mime.MediaTypeNames;
 using SkiaSharp;
 using Avalonia.Input;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Timers;
+using Avalonia.Threading;
 
 namespace TaskMonagerAviaProject;
 
@@ -213,7 +215,10 @@ public partial class WindowProjects : Window
         UserAutorizationTrue.ProjectId = (Guid)(sender as Border).Tag!;
         LoadTasks();
         ProjectVisible.IsVisible = true;
+        TopButtonVisible.IsVisible = true;
         MenuButtonsProject.IsVisible = true;
+        ListTasksUserWindow.IsVisible = false;
+        PanelProject.DisplayMode = SplitViewDisplayMode.CompactInline;
         TasksSprintsMenu();
     }
 
@@ -438,6 +443,7 @@ public partial class WindowProjects : Window
         if(UserAutorizationTrue.ProjectId == Guid.Empty)
         {
             ProjectVisible.IsVisible = false;
+            MenuButtonsProject.IsVisible = false;
         }
         LoadProjects();
     }
@@ -751,16 +757,25 @@ public partial class WindowProjects : Window
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 string context = await httpResponseMessage.Content.ReadAsStringAsync();
-                List<SprintsProjectModel> sprintsProjectModels = JsonConvert.DeserializeObject<List<SprintsProjectModel>>(context)!.ToList();
+                sprintsProjectModels = JsonConvert.DeserializeObject<List<SprintsProjectModel>>(context)!.ToList();
+                sprintsProjectModels = sprintsProjectModels.OrderBy(x => x.DateStart).ToList();
                 ListSprintsproject.ItemsSource = sprintsProjectModels.Select(x => new
                 {
                     x.Id,
                     Date = $"С {x.DateStart} по {x.DateEnd}",
                     Status = x.TitleStatus
                 }).ToList();
+                if (getSprintModels == null)
+                {
+                    ListStatusesSprint.IsVisible = false;
+                }
             }
         }
     }
+
+    private List<GetSprintModel> getSprintModels = new List<GetSprintModel>();
+    private List<SprintsProjectModel> sprintsProjectModels = new List<SprintsProjectModel>();
+
     private async void Loadsprint(int Id)
     {
         using (var Client = new HttpClient())
@@ -769,19 +784,111 @@ public partial class WindowProjects : Window
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 string context = await httpResponseMessage.Content.ReadAsStringAsync();
-                List<GetSprintModel> getSprintModels = JsonConvert.DeserializeObject<List<GetSprintModel>>(context)!.ToList();
-                ListStatusesSprint.ItemsSource = getSprintModels.Select(x => new
+                getSprintModels = JsonConvert.DeserializeObject<List<GetSprintModel>>(context)!.ToList();
+                if (ListStatusesSprint != null)
                 {
-                    x.Id,
-                    x.TitleStatus,
-                    Color = new SolidColorBrush(Avalonia.Media.Color.FromArgb(System.Drawing.ColorTranslator.FromHtml(x.Color).A, System.Drawing.ColorTranslator.FromHtml(x.Color).R, System.Drawing.ColorTranslator.FromHtml(x.Color).G, System.Drawing.ColorTranslator.FromHtml(x.Color).B)),
-                    ListTasks = x.Tasks!.Select(y => new
+                    ListStatusesSprint.IsVisible = true;
+                    ListStatusesSprint.ItemsSource = getSprintModels.Select(x => new
                     {
-                        IdTask = y.Id,
-                        y.TitleTask
-                    })
-                }).ToList();
+                        x.Id,
+                        x.TitleStatus,
+                        Color = new SolidColorBrush(Avalonia.Media.Color.FromArgb(System.Drawing.ColorTranslator.FromHtml(x.Color).A, System.Drawing.ColorTranslator.FromHtml(x.Color).R, System.Drawing.ColorTranslator.FromHtml(x.Color).G, System.Drawing.ColorTranslator.FromHtml(x.Color).B)),
+                        ListTasks = x.Tasks!.Select(y => new
+                        {
+                            IdTask = y.Id,
+                            y.TitleTask
+                        })
+                    }).ToList();
+                    IdTimeFromTimers = Id;
+                    if (sprintsProjectModels.FirstOrDefault(x => x.Id == Id)!.DateStart >= DateTime.Now)
+                    {
+                        TimerStartInfo();
+                    }
+                    else if (sprintsProjectModels.FirstOrDefault(x => x.Id == Id)!.DateEnd > DateTime.Now)
+                    {
+                        TimerEndInfo();
+                    }
+                    else
+                    {
+                        _disTimerStart.Stop();
+                        _disTimerEnd.Stop();
+                        TimerText.Text = "Завершен!";
+                    }
+                }
             }
+        }
+    }
+
+    private int IdTimeFromTimers = 0;
+    private DispatcherTimer _disTimerEnd = new DispatcherTimer();
+    private DispatcherTimer _disTimerStart = new DispatcherTimer();
+
+    private void UpdateStatusSprint()
+    {
+        Loadsprints();
+    }
+
+    private void TimerEndInfo()
+    {
+        _disTimerStart.Stop();
+        _disTimerEnd.Interval = TimeSpan.FromSeconds(0.1);
+        _disTimerEnd.Tick += OnTimedEventEnd;
+        _disTimerEnd.Start();
+    }
+    private void OnTimedEventEnd(object? sender, EventArgs e)
+    {
+        if (IdTimeFromTimers != 0)
+        {
+            if (sprintsProjectModels.FirstOrDefault(x => x.Id == IdTimeFromTimers) != null)
+            {
+                TimeSpan dateTimeEnd = sprintsProjectModels.FirstOrDefault(x => x.Id == IdTimeFromTimers)!.DateEnd.Subtract(DateTime.Now);
+                if (dateTimeEnd == new TimeSpan())
+                {
+                    UpdateStatusSprint();
+                }
+                TimerText.Text = $"До конца: {dateTimeEnd.Days} дн. {dateTimeEnd.Hours} час. {dateTimeEnd.Minutes} мин. {dateTimeEnd.Seconds} сек.";
+            }
+            else
+            {
+                _disTimerEnd.Stop();
+                TimerText.Text = "";
+            }
+        }
+        else
+        {
+            TimerText.Text = "";
+        }
+    }
+
+    private void TimerStartInfo()
+    {
+        _disTimerEnd.Stop();
+        _disTimerStart.Interval = TimeSpan.FromSeconds(0.1);
+        _disTimerStart.Tick += OnTimedEventStart;
+        _disTimerStart.Start();
+    }
+    private void OnTimedEventStart(object? sender, EventArgs e)
+    {
+        if (IdTimeFromTimers != 0)
+        {
+            if (sprintsProjectModels.FirstOrDefault(x => x.Id == IdTimeFromTimers) != null)
+            {
+                TimeSpan dateTimeStart = sprintsProjectModels.FirstOrDefault(x => x.Id == IdTimeFromTimers)!.DateStart.Subtract(DateTime.Now);
+                if (dateTimeStart == new TimeSpan())
+                {
+                    UpdateStatusSprint();
+                }
+                TimerText.Text = $"До начала: {dateTimeStart.Days} дн. {dateTimeStart.Hours} час. {dateTimeStart.Minutes} мин. {dateTimeStart.Seconds} сек.";
+            }
+            else
+            {
+                _disTimerStart.Stop();
+                TimerText.Text = "";
+            }
+        }
+        else
+        {
+            TimerText.Text = "";
         }
     }
 
@@ -790,26 +897,38 @@ public partial class WindowProjects : Window
 
 
 
-
-
-
-
-
-
-
+    private int IdStatusDrop = 0;
 
     //Действие тащить
     async void DoDrag(object? sender, PointerPressedEventArgs e)
     {
-        //Результат действия тащить
-        var result = await DragDrop.DoDragDrop(e, new DataObject(), DragDropEffects.Move);
-        switch (result)
+        if (sprintsProjectModels.FirstOrDefault(x => x.Id == IdTimeFromTimers)!.DateEnd > DateTime.Now &&
+            sprintsProjectModels.FirstOrDefault(x => x.Id == IdTimeFromTimers)!.DateStart < DateTime.Now)
         {
-            case DragDropEffects.Move:
-                int Id = (int)(sender as Control).Tag!;
-                break;
-            case DragDropEffects.None:
-                break;
+            //Результат действия тащить
+            var result = await DragDrop.DoDragDrop(e, new DataObject(), DragDropEffects.Move);
+            switch (result)
+            {
+                case DragDropEffects.Move:
+                    int Id = (int)(sender as Control).Tag!;
+                    using (var Client = new HttpClient())
+                    {
+                        UpdateStatusTaskModel updateStatusTaskModel = new UpdateStatusTaskModel();
+                        updateStatusTaskModel.TaskId = Id;
+                        updateStatusTaskModel.StatusId = IdStatusDrop;
+                        updateStatusTaskModel.ProjectId = UserAutorizationTrue.ProjectId;
+                        updateStatusTaskModel.Password = UserAutorizationTrue.userLog.Password;
+                        updateStatusTaskModel.Email = UserAutorizationTrue.userLog.Email;
+                        HttpResponseMessage httpResponseMessage = await Client.PutAsJsonAsync($"{BaseAddress.Address}Task/Update_status_task", updateStatusTaskModel);
+                        if (httpResponseMessage.IsSuccessStatusCode)
+                        {
+                            Loadsprint(SelectSprint);
+                        }
+                    }
+                    break;
+                case DragDropEffects.None:
+                    break;
+            }
         }
     }
     //Действие бросить
@@ -828,7 +947,7 @@ public partial class WindowProjects : Window
             selectElement = selectElement.Parent as Control;
         }
         while (true);
-        int Id = (int)selectElement.Tag;
+        IdStatusDrop = (int)selectElement.Tag;
         e.DragEffects = DragDropEffects.Move;
     }
 
@@ -852,6 +971,7 @@ public partial class WindowProjects : Window
         if (UserAutorizationTrue.ProjectId == Guid.Empty)
         {
             ProjectVisible.IsVisible = false;
+            MenuButtonsProject.IsVisible = false;
         }
         else
         {
@@ -952,6 +1072,7 @@ public partial class WindowProjects : Window
     {
         CreateNewStatusTaskWindow createNewStatusTaskWindow = new CreateNewStatusTaskWindow();
         await createNewStatusTaskWindow.ShowDialog(this);
+        Loadsprint(SelectSprint);
     }
 
     private async void EditUseutton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -982,6 +1103,8 @@ public partial class WindowProjects : Window
                 SprintMenu.IsVisible = false;
                 ListTasks.IsVisible = true;
                 SprintsList.IsVisible = false;
+                TimerText.IsVisible = false;
+                LoadTasks();
                 break;
             case 2:
                 SprintsButtonMenu.Background = Avalonia.Media.Brushes.LightGray;
@@ -991,6 +1114,7 @@ public partial class WindowProjects : Window
                 ListTasks.IsVisible = false;
                 SprintsList.IsVisible = true;
                 Loadsprints();
+                TimerText.IsVisible = true;
                 break;
         }
     }
@@ -1009,9 +1133,115 @@ public partial class WindowProjects : Window
         TasksSprintsMenu();
     }
 
+    private int SelectSprint = 0;
+
     private void SprintLoadButton(object? sender, Avalonia.Input.TappedEventArgs e)
     {
-        int id = (int)(sender as Border).Tag!;
-        Loadsprint(id);
+        SelectSprint = (int)(sender as Border).Tag!;
+        Loadsprint(SelectSprint);
+    }
+
+    private async void NewSprintButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        CreateSprintWindow createSprintWindow = new CreateSprintWindow();
+        await createSprintWindow.ShowDialog(this);
+        Loadsprints();
+    }
+
+    private async void DeleteStatusButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as MenuItem).Tag!;
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.DeleteAsync($"{BaseAddress.Address}StatusTask/Delete_status_tasks?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}&StatusId={id}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                Loadsprint(SelectSprint);
+            }
+        }
+    }
+
+    private async void DeleteSprintButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as MenuItem).Tag!;
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.DeleteAsync($"{BaseAddress.Address}Sprint/Delete_sprint?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}&SprintId={id}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                Loadsprints();
+                ListStatusesSprint.IsVisible = false;
+            }
+        }
+    }
+
+    private async void DeleteTaskButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as MenuItem).Tag!;
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.DeleteAsync($"{BaseAddress.Address}Task/Deleting_task?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={UserAutorizationTrue.ProjectId}&TaskId={id}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                LoadTasks();
+            }
+        }
+    }
+
+    private async void EditSprintButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        int id = (int)(sender as MenuItem).Tag!;
+        CreateSprintWindow createSprintWindow = new CreateSprintWindow(id);
+        await createSprintWindow.ShowDialog(this);
+        Loadsprints();
+        Loadsprint(SelectSprint);
+    }
+
+    private async void ExitProjectButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        using (var Client = new HttpClient())
+        {
+            Guid id = (Guid)(sender as MenuItem).Tag!;
+            HttpResponseMessage httpResponseMessage = await Client.DeleteAsync($"{BaseAddress.Address}Project/Exit_object_project?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}&ProjectId={id}&UserId={UserAutorizationTrue.userLog.Id}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                if (UserAutorizationTrue.ProjectId == id)
+                {
+                    ProjectVisible.IsVisible = false;
+                    MenuButtonsProject.IsVisible = false;
+                }
+                LoadProjects();
+            }
+        }
+    }
+
+    private async void MyTasksWindowButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        TopButtonVisible.IsVisible = false;
+        MenuButtonsProject.IsVisible = false;
+        ListTasks.IsVisible = false;
+        SprintsList.IsVisible = false;
+        ListTasksUserWindow.IsVisible = true;
+        PanelProject.DisplayMode = SplitViewDisplayMode.Overlay;
+        using (var Client = new HttpClient())
+        {
+            HttpResponseMessage httpResponseMessage = await Client.GetAsync($"{BaseAddress.Address}Task/Get_tasks_user?Email={UserAutorizationTrue.userLog.Email}&Password={UserAutorizationTrue.userLog.Password}");
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                string context = await httpResponseMessage.Content.ReadAsStringAsync();
+                List<GetTasksUserModel> tasks = JsonConvert.DeserializeObject<List<GetTasksUserModel>>(context)!.ToList();
+                ListTasksUser.ItemsSource = tasks.Select(x => new
+                {
+                    x.NameProject,
+                    ListTasksUserInList = x.ListTasks!.Select(y => new
+                    {
+                        y.TitleTask, 
+                        y.DescriptionTask,
+                        ColorTask = new SolidColorBrush(Avalonia.Media.Color.FromArgb(System.Drawing.ColorTranslator.FromHtml(y.Color!).A, System.Drawing.ColorTranslator.FromHtml(y.Color!).R, System.Drawing.ColorTranslator.FromHtml(y.Color!).G, System.Drawing.ColorTranslator.FromHtml(y.Color!).B)),
+                        y.TitleStatus
+                    }).ToList()
+                }).ToList();
+            }
+        }
     }
 }
