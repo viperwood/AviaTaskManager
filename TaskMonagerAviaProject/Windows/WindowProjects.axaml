@@ -99,8 +99,9 @@
 			
 			
 			<SplitView.Content>
-				<Grid Name="ProjectVisible" IsVisible="True" Background="#383838" ColumnDefinitions="50 * 50" RowDefinitions="50 * 50">
-					<Border Name="TopButtonVisible" IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
+				<Grid Name="ProjectVisible" IsVisible="True" Background="Transparent" ColumnDefinitions="50 * 50" RowDefinitions="50 * 20">
+					<Image Effect="blur(20)" Stretch="UniformToFill" Grid.ColumnSpan="3" Grid.RowSpan="3" Source="\Image\testImmage.jpg"/>
+					<Border Background="#383838" Name="TopButtonVisible" IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
 						<Grid>
 							<ScrollViewer Name="TaskMenu" IsVisible="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 								<StackPanel Orientation="Horizontal">
@@ -140,17 +141,24 @@
 									</Button>
 								</StackPanel>
 							</ScrollViewer>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10 0" Name="TimerText"/>
 						</Grid>
 					</Border>
+					<Border Grid.Column="0" Grid.Row="2" Name="DounBorder" Grid.ColumnSpan="3" Background="#383838"/>
 					<!--Таски-->
 					<TreeView Grid.Column="1" Grid.Row="1"
 						  Margin="50"
 						  IsVisible="False"
 						  Name="ListTasks"
 						  SelectionMode="Single">
+						<TreeView.Styles>
+							<Style Selector="TreeViewItem">
+								<Setter Property="IsExpanded" Value="True"/>
+							</Style>
+						</TreeView.Styles>
 						<TreeView.ItemTemplate>
 							<TreeDataTemplate ItemsSource="{Binding Subtask}">
-								<Border CornerRadius="10" BorderBrush="White" BorderThickness="1">
+								<Border Background="#383838" CornerRadius="10" BorderBrush="Black" BorderThickness="1">
 									<Border.ContextMenu>
 										<ContextMenu>
 											<MenuItem Tag="{Binding Id}" Click="DeleteTaskButton" Header="Удалить"/>
@@ -181,7 +189,8 @@
 					</TreeView>
 					<!--Спринты-->
 					<Grid ColumnDefinitions="* 4 3*" Name="SprintsList" IsVisible="False" Grid.Column="1" Grid.Row="1">
-						<ListBox Grid.Column="0" Name="ListSprintsproject">
+						<Border Grid.Column="0" Background="#1e1e1e" Effect="blur(25)"/>
+						<ListBox Grid.Column="0" Name="ListSprintsproject" Background="Transparent">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<Border Background="Transparent" Tapped="SprintLoadButton" Tag="{Binding Id}" CornerRadius="10" BorderBrush="White" BorderThickness="1">
@@ -199,9 +208,10 @@
 								</DataTemplate>
 							</ListBox.ItemTemplate>
 						</ListBox>
-						<GridSplitter Grid.Column="1" Grid.Row="1" Background="LightGray" ResizeDirection="Columns"/>
+						<GridSplitter Grid.Column="1" Grid.Row="1" Background="Transparent" ResizeDirection="Columns"/>
+						<Border Grid.Column="2" Background="#1e1e1e" Effect="blur(25)"/>
 						<ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="2">
-							<ListBox Name="ListStatusesSprint" IsVisible="True">
+							<ListBox Name="ListStatusesSprint" Background="Transparent" IsVisible="True">
 								<ListBox.ItemsPanel>
 									<ItemsPanelTemplate>
 										<DockPanel HorizontalAlignment="Left"/>
@@ -209,35 +219,34 @@
 								</ListBox.ItemsPanel>
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<Grid DragDrop.AllowDrop="True" Tag="{Binding Id}" RowDefinitions="50 *" Background="{Binding Color}">
-											<Grid.ContextMenu>
-												<ContextMenu>
-													<MenuItem Tag="{Binding Id}" Click="DeleteStatusButton" Header="Удалить"/>
-												</ContextMenu>
-											</Grid.ContextMenu>
-											<Border Grid.Row="0" VerticalAlignment="Center" Background="#1e1e1e" CornerRadius="10" BorderBrush="Gray" BorderThickness="1">
-												<TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding TitleStatus}"/>
-											</Border>
-											<ListBox ItemsSource="{Binding ListTasks}" MinWidth="150" Height="NaN" Margin="10" Grid.Row="1">
-												<ListBox.ItemTemplate>
-													<DataTemplate>
-														<Border PointerPressed="DoDrag" Background="Transparent" Name="DragMeElement" Tag="{Binding IdTask}" BorderBrush="White" BorderThickness="1" CornerRadius="10">
-															<StackPanel Margin="10">
-																<TextBlock Text="{Binding TitleTask}" HorizontalAlignment="Center"/>
-															</StackPanel>
-														</Border>
-													</DataTemplate>
-												</ListBox.ItemTemplate>
-											</ListBox>
-										</Grid>
+										<Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{Binding Color}">
+											<Grid DragDrop.AllowDrop="True" Tag="{Binding Id}" RowDefinitions="50 *">
+												<Grid.ContextMenu>
+													<ContextMenu>
+														<MenuItem Tag="{Binding Id}" Click="DeleteStatusButton" Header="Удалить"/>
+													</ContextMenu>
+												</Grid.ContextMenu>
+												<Border Margin="10 0" Grid.Row="0" VerticalAlignment="Center" Background="#1e1e1e" CornerRadius="10" BorderBrush="Gray" BorderThickness="1">
+													<TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding TitleStatus}"/>
+												</Border>
+												<ListBox ItemsSource="{Binding ListTasks}" MinWidth="150" Height="NaN" Margin="10" Grid.Row="1">
+													<ListBox.ItemTemplate>
+														<DataTemplate>
+															<Border PointerPressed="DoDrag" Background="Transparent" Name="DragMeElement" Tag="{Binding IdTask}" BorderBrush="White" BorderThickness="1" CornerRadius="10">
+																<StackPanel Margin="10">
+																	<TextBlock Text="{Binding TitleTask}" HorizontalAlignment="Center"/>
+																</StackPanel>
+															</Border>
+														</DataTemplate>
+													</ListBox.ItemTemplate>
+												</ListBox>
+											</Grid>
+										</Border>
 									</DataTemplate>
 								</ListBox.ItemTemplate>
 							</ListBox>
 						</ScrollViewer>
 					</Grid>
-					<StackPanel Grid.Column="1" VerticalAlignment="Center" Grid.Row="2">
-						<TextBlock Name="TimerText"/>
-					</StackPanel>
 					<!--!!!!!!!!!!!!-->
 					<SplitView PanePlacement="Right" Grid.Column="1" Name="PanelProject" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7"
 						DisplayMode="Overlay" PaneBackground="#1e1e1e" IsPaneOpen="False"

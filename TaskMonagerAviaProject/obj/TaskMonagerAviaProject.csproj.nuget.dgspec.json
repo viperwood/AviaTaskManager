@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MakZab\\source\\repos\\TaskMonagerAviaProject\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj": {}
+    "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MakZab\\source\\repos\\TaskMonagerAviaProject\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj": {
+    "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MakZab\\source\\repos\\TaskMonagerAviaProject\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
+        "projectUniqueName": "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
         "projectName": "TaskMonagerAviaProject",
-        "projectPath": "C:\\Users\\MakZab\\source\\repos\\TaskMonagerAviaProject\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
-        "packagesPath": "C:\\Users\\MakZab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MakZab\\source\\repos\\TaskMonagerAviaProject\\TaskMonagerAviaProject\\obj\\",
+        "projectPath": "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
+        "packagesPath": "C:\\Users\\class_student\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\MakZab\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\class_student\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -48,27 +52,27 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.2.8, )"
+              "version": "[11.3.0, )"
             },
             "Avalonia.Controls.ColorPicker": {
               "target": "Package",
-              "version": "[11.2.8, )"
+              "version": "[11.3.0, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.2.8, )"
+              "version": "[11.3.0, )"
             },
             "Avalonia.Diagnostics": {
               "target": "Package",
-              "version": "[11.2.8, )"
+              "version": "[11.3.0, )"
             },
             "Avalonia.Fonts.Inter": {
               "target": "Package",
-              "version": "[11.2.8, )"
+              "version": "[11.3.0, )"
             },
             "Avalonia.Themes.Fluent": {
               "target": "Package",
-              "version": "[11.2.8, )"
+              "version": "[11.3.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -95,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

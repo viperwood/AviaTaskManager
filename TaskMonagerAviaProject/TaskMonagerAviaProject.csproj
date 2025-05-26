@@ -10,20 +10,22 @@
   <ItemGroup>
     <None Remove="Images\Logo.png" />
     <None Remove="Images\LogoDark.png" />
+    <None Remove="Image\testImmage.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Images\Logo.png" />
     <AvaloniaResource Include="Images\LogoDark.png" />
+    <AvaloniaResource Include="Image\testImmage.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.2.8" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.2.8" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.2.8" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.8" />
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.8" />
+    <PackageReference Include="Avalonia" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.0" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.8" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
   </ItemGroup>

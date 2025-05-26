@@ -1102,6 +1102,7 @@ public partial class WindowProjects : Window
                 TaskMenu.IsVisible = true;
                 SprintMenu.IsVisible = false;
                 ListTasks.IsVisible = true;
+                DounBorder.IsVisible = true;
                 SprintsList.IsVisible = false;
                 TimerText.IsVisible = false;
                 LoadTasks();
@@ -1112,6 +1113,7 @@ public partial class WindowProjects : Window
                 TaskMenu.IsVisible = false;
                 SprintMenu.IsVisible = true;
                 ListTasks.IsVisible = false;
+                DounBorder.IsVisible = false;
                 SprintsList.IsVisible = true;
                 Loadsprints();
                 TimerText.IsVisible = true;
