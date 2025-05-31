@@ -34,7 +34,6 @@ namespace TaskMonagerAviaProject
             PasswordImageRegSec.Source = iconsOpen;
             if (File.Exists(path))
             {
-
                 User data = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(path))![0];
                 loginUserModel.Email = data.Email!;
                 loginUserModel.PasswordUser = data.Password!;

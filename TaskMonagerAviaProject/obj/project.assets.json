@@ -1574,24 +1574,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\class_student\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\MakZab\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
+      "projectUniqueName": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
       "projectName": "TaskMonagerAviaProject",
-      "projectPath": "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
-      "packagesPath": "C:\\Users\\class_student\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\class_student\\Desktop\\tm\\AviaTaskManager\\TaskMonagerAviaProject\\obj\\",
+      "projectPath": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj",
+      "packagesPath": "C:\\Users\\MakZab\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\class_student\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\MakZab\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1599,6 +1594,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1616,8 +1612,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -1672,7 +1667,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

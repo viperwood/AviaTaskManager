@@ -3,7 +3,60 @@
              x:Class="TaskMonagerAviaProject.App"
              RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<!--<ResourceDictionary x:Key="Dark">
+					<Color x:Key="1eGrayColor">#1e1e1e</Color>
+					<Color x:Key="38GrayColor">#383838</Color>
+					<Color x:Key="DimGrayColor">DimGray</Color>
+					<Color x:Key="GrayColor">Gray</Color>
+					<Color x:Key="LightGrayColor">LightGray</Color>
+					<Color x:Key="WhiteColor">White</Color>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Light">
+					<Color x:Key="1eGrayColor">#8F8F8F</Color>
+					<Color x:Key="38GrayColor">#9C9C9C</Color>
+					<Color x:Key="DimGrayColor">#B4B4B4</Color>
+					<Color x:Key="GrayColor">#C4C4C4</Color>
+					<Color x:Key="LightGrayColor">#E9E9E9</Color>
+					<Color x:Key="WhiteColor">#000000</Color>
+				</ResourceDictionary>-->
+				<ResourceDictionary x:Key="Dark">
+					<Color x:Key="MainColor">#1D20A6</Color>
+					<Color x:Key="MainSecondColor">#595cff</Color>
+					<Color x:Key="SecondaryColor">#1e1e1e</Color>
+					<Color x:Key="ButtonColor">#5055FF</Color>
+					<Color x:Key="SecondaryButtonColor">#1D20A6</Color>
+					<Color x:Key="PanelsColor">#383838</Color>
+					<Color x:Key="SecondaryPanelsColor">#4F4F4F</Color>
+					<Color x:Key="TextColor">White</Color>
+					<Color x:Key="SecondaryTextColor">#cbcbcb</Color>
+					<Color x:Key="SeparatorColor">#1A1A1A</Color>
+					
+					<Color x:Key="320571">#320571</Color>
+					<Color x:Key="8144D6">#8144D6</Color>
+					<Color x:Key="976BD6">#976BD6</Color>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Light">
+					<Color x:Key="MainColor">#1D20A6</Color>
+					<Color x:Key="MainSecondColor">#595cff</Color>
+					<Color x:Key="SecondaryColor">#eee2df</Color>
+					<Color x:Key="ButtonColor">#7A7DFF</Color>
+					<Color x:Key="SecondaryButtonColor">#1D20A6</Color>
+					<Color x:Key="PanelsColor">#898989</Color>
+					<Color x:Key="SecondaryPanelsColor">#C4C4C4</Color>
+					<Color x:Key="TextColor">Black</Color>
+					<Color x:Key="SecondaryTextColor">#DADADA</Color>
+					<Color x:Key="SeparatorColor">#9F9F9F</Color>
 
+					<Color x:Key="320571">#320571</Color>
+					<Color x:Key="8144D6">#8144D6</Color>
+					<Color x:Key="976BD6">#976BD6</Color>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
     <Application.Styles>
         <FluentTheme/>
 		<StyleInclude Source="/Assets/UserIcon.axaml"/>
@@ -17,6 +70,8 @@
 		<StyleInclude Source="/Assets/DismissRegularIcon.axaml"/>
 		<StyleInclude Source="/Assets/MailRegularIcon.axaml"/>
 		<StyleInclude Source="/Assets/FrendsIcon.axaml"/>
+		<StyleInclude Source="/Assets/WeatherMoonRegularIcon.axaml"/>
+		<StyleInclude Source="/Assets/WeatherSunnyRegularIcon.axaml"/>
 		<StyleInclude Source="/Assets/PeopleSearchRegularIcon.axaml"/>
 		<StyleInclude Source="/Assets/CheckmarkRegularIcon.axaml"/>
 		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />

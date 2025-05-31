@@ -14,6 +14,7 @@ namespace TaskMonagerAviaProject.Models
         public string? DescriptionTask { get; set; }
         public string? StatusTitle { get; set; }
         public SolidColorBrush? StatusColor { get; set; }
+        public Avalonia.Media.Color? StatusColorGradient { get; set; }
 
         public List<GetUserTaskModel> userList { get; set; }
         public List<GetTasksModel> Subtask { get; set; }
@@ -36,6 +37,7 @@ namespace TaskMonagerAviaProject.Models
             StatusTitle = tasksProject.StatusTitle;
 
             System.Drawing.Color color = System.Drawing.ColorTranslator.FromHtml(tasksProject.StatusColor);
+            StatusColorGradient = Avalonia.Media.Color.FromArgb(color.A, color.R, color.G, color.B);
             StatusColor = new SolidColorBrush(Avalonia.Media.Color.FromArgb(color.A, color.R, color.G, color.B));
             DescriptionTask = tasksProject.DescriptionTask;
         }

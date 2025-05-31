@@ -39,6 +39,13 @@ public partial class EditUserLoginWindow : Window
                 ImageTest.Source = new Bitmap(memoryStream);
             }
         }
+        if (UserAutorizationTrue.userLog.ImageBackground != null)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(UserAutorizationTrue.userLog.ImageBackground))
+            {
+                ImageBackground.Source = new Bitmap(memoryStream);
+            }
+        }
     }
 
     private bool PasswordBut2 = true;
@@ -76,6 +83,7 @@ public partial class EditUserLoginWindow : Window
     }
 
     private byte[] imageData;
+    private byte[] imageBackgroundData;
 
     private void EditUserButtonSave(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -106,6 +114,8 @@ public partial class EditUserLoginWindow : Window
                     registrationModel.PasswordUserOld = UserAutorizationTrue.userLog.Password!;
                     registrationModel.Username = UserNameTextReg.Text;
                     registrationModel.ImageUser = imageData;
+                    registrationModel.DarckLightColor = WindowProjects.DarckLight;
+                    registrationModel.ImageBackground = imageBackgroundData;
                     HttpResponseMessage httpResponseMessage = await Client.PutAsJsonAsync($"{BaseAddress.Address}User/Edit_user", registrationModel);
                     if (httpResponseMessage.IsSuccessStatusCode)
                     {
@@ -117,12 +127,15 @@ public partial class EditUserLoginWindow : Window
                         LoginUserModel loginUserModel = new LoginUserModel();
                         loginUserModel.Email = EmailTextReg.Text;
                         loginUserModel.PasswordUser = PasswordTextReg.Text;
+
                         httpResponseMessage = await Client.PostAsJsonAsync($"{BaseAddress.Address}User/Login_user", loginUserModel);
                         if (httpResponseMessage.IsSuccessStatusCode)
                         {
                             string path = AppDomain.CurrentDomain.BaseDirectory + @"\UserLog.json";
                             string content = await httpResponseMessage.Content.ReadAsStringAsync();
-                            UserAutorizationTrue.userLog = JsonConvert.DeserializeObject<List<User>>(content)![0];
+                            User user = JsonConvert.DeserializeObject<List<User>>(content)![0];
+                            UserAutorizationTrue.userLog = user;
+                            
                             if (File.Exists(path))
                             {
                                 if (!string.IsNullOrEmpty(content) && !string.IsNullOrEmpty(path))
@@ -221,6 +234,31 @@ public partial class EditUserLoginWindow : Window
         if (NumberFromEmail.Text == randomKode.ToString())
         {
             EditSave();
+        }
+    }
+
+    private async void OpenImageBackground(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        TopLevel top = TopLevel.GetTopLevel(this)!;
+        var file = await top.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
+        {
+            Title = "Image background"
+        });
+        if (file.Count() != 0)
+        {
+            try
+            {
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(file[0].Path.AbsolutePath);
+                imageBackgroundData = ConvertBitmapToByteArray(bitmap);
+                using (MemoryStream memoryStream = new MemoryStream(imageBackgroundData))
+                {
+                    ImageBackground.Source = new Bitmap(memoryStream);
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

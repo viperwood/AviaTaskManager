@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TaskMonagerAviaProject.EditUserLoginWindow"
         Title="EditUserLoginWindow"
-		MinWidth="800" MinHeight="850"
+		MinWidth="800" MinHeight="800"
 		WindowStartupLocation="CenterOwner"
 		TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True">
@@ -41,6 +41,8 @@
 							</Grid>
 							<Image MaxHeight="200" Name="ImageTest"/>
 							<Button Foreground="Black" Click="OpenImage" Margin="10" HorizontalAlignment="Center" Content="Добавить изображение" Padding="40 5" BorderBrush="Black"/>
+							<Image MaxHeight="200" Name="ImageBackground"/>
+							<Button Foreground="Black" Click="OpenImageBackground" Margin="10" HorizontalAlignment="Center" Content="Добавить задний фон" Padding="40 5" BorderBrush="Black"/>
 							<TextBlock HorizontalAlignment="Center" Foreground="Red" Margin="10" Name="ErrorTextReg"/>
 							<Button Foreground="Black" Click="EditUserButtonSave" Margin="10" HorizontalAlignment="Center" Content="Сохранить" Padding="40 5" BorderBrush="Black"/>
 						</StackPanel>

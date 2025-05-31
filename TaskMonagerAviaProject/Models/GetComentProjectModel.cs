@@ -10,7 +10,7 @@ namespace TaskMonagerAviaProject.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int AnswerMailId { get; set; }
+        public int? AnswerMailId { get; set; }
         public string? AnswerMailText { get; set; }
         public string? AnswerMailUser { get; set; }
         public string? Username { get; set; }

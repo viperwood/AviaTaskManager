@@ -14,5 +14,7 @@ namespace TaskMonagerAviaProject.Models
         public string? Username { get; set; }
         public string? Password { get; set; }
         public byte[]? UserImage { get; set; }
+        public byte[]? ImageBackground { get; set; } = null;
+        public bool? DarckLightColor { get; set; } = null!;
     }
 }
