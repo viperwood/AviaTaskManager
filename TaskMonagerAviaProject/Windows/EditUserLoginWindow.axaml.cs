@@ -39,13 +39,6 @@ public partial class EditUserLoginWindow : Window
                 ImageTest.Source = new Bitmap(memoryStream);
             }
         }
-        if (UserAutorizationTrue.userLog.ImageBackground != null)
-        {
-            using (MemoryStream memoryStream = new MemoryStream(UserAutorizationTrue.userLog.ImageBackground))
-            {
-                ImageBackground.Source = new Bitmap(memoryStream);
-            }
-        }
     }
 
     private bool PasswordBut2 = true;
@@ -237,29 +230,5 @@ public partial class EditUserLoginWindow : Window
         }
     }
 
-    private async void OpenImageBackground(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-        TopLevel top = TopLevel.GetTopLevel(this)!;
-        var file = await top.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
-        {
-            Title = "Image background"
-        });
-        if (file.Count() != 0)
-        {
-            try
-            {
-                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(file[0].Path.AbsolutePath);
-                imageBackgroundData = ConvertBitmapToByteArray(bitmap);
-                using (MemoryStream memoryStream = new MemoryStream(imageBackgroundData))
-                {
-                    ImageBackground.Source = new Bitmap(memoryStream);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-    }
 }
 

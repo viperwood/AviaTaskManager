@@ -20,6 +20,7 @@ public partial class CreateNewTaskWindow : Window
     public CreateNewTaskWindow()
     {
         InitializeComponent();
+        TextWindow.Text = "Создание новой задачи";
         LoadInfo();
     }
 
@@ -28,6 +29,7 @@ public partial class CreateNewTaskWindow : Window
     public CreateNewTaskWindow( int TaskId)
     {
         InitializeComponent();
+        TextWindow.Text = "Редактирование задачи";
         _taskId = TaskId;
         LoadTask();
     }
@@ -55,11 +57,11 @@ public partial class CreateNewTaskWindow : Window
                 string context = await httpResponseMessage.Content.ReadAsStringAsync();
                 tasks = JsonConvert.DeserializeObject<List<GetTaskModel>>(context)!;
                 BoxTasks.ItemsSource = tasks.ToList();
-                if (tasks.Count() == 0)
+                /*if (tasks.Count() == 0)
                 {
                     TaskList.Clear();
                     loadList();
-                }
+                }*/
             }
         }
     }

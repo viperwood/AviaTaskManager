@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\edituserloginwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\windows\\createnewtaskwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\createnewtaskwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\windows\\edituserloginwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
       "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\edituserloginwindow.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
     },
@@ -15,16 +19,16 @@
       "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\loginwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\windows\\windowprojects.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\windowprojects.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\baseaddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\baseaddress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\windows\\windowprojects.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
       "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\windowprojects.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\app.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}",
-      "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\app.axaml||{6D5344A2-2FCD-49DE-A09D-6A14FD1B1224}"
+      "AbsoluteMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|c:\\users\\makzab\\source\\repos\\aviataskmanager\\taskmonageraviaproject\\windows\\windowprojects.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A55BACA-C629-4A3B-B697-56D8E7A2C0FC}|TaskMonagerAviaProject\\TaskMonagerAviaProject.csproj|solutionrelative:taskmonageraviaproject\\windows\\windowprojects.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,15 +42,15 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginWindow.axaml.cs",
-              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
-              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
-              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
-              "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAgwDIAAAANAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "CreateNewTaskWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\CreateNewTaskWindow.axaml.cs",
+              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\CreateNewTaskWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\CreateNewTaskWindow.axaml.cs",
+              "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\CreateNewTaskWindow.axaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T21:56:51.12Z",
+              "WhenOpened": "2025-06-19T22:42:03.309Z",
               "EditorCaption": ""
             },
             {
@@ -57,79 +61,71 @@
               "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml.cs",
               "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml.cs",
               "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAMwMQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T20:50:42.771Z",
+              "WhenOpened": "2025-06-19T22:41:28.374Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "EditUserLoginWindow.axaml",
               "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml",
               "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml",
               "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml",
               "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\EditUserLoginWindow.axaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-30T20:04:32.532Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "WindowProjects.axaml.cs",
-              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
-              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
-              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
-              "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAgwEMAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T15:03:32.896Z",
+              "WhenOpened": "2025-06-19T22:41:00.402Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "BaseAddress.cs",
+              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\BaseAddress.cs",
+              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\BaseAddress.cs",
+              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\BaseAddress.cs",
+              "RelativeToolTip": "TaskMonagerAviaProject\\BaseAddress.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T18:09:50.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
+              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
+              "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\LoginWindow.axaml.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAADgv08AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T17:45:51.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "WindowProjects.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
+              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
+              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
+              "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\WindowProjects.axaml.cs",
+              "ViewState": "AgIAAG0CAAAAAAAAAAA9wIkCAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-07T17:45:44.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "WindowProjects.axaml",
               "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\WindowProjects.axaml",
               "RelativeDocumentMoniker": "TaskMonagerAviaProject\\Windows\\WindowProjects.axaml",
               "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\Windows\\WindowProjects.axaml",
               "RelativeToolTip": "TaskMonagerAviaProject\\Windows\\WindowProjects.axaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-27T08:52:41.636Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "cbe0e6dc-feaa-4e11-9d33-78db83d73add",
-        "Display": 1,
-        "X": 332,
-        "Y": 142,
-        "Width": 2229,
-        "Height": 1082,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "App.axaml",
-              "DocumentMoniker": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\App.axaml",
-              "RelativeDocumentMoniker": "TaskMonagerAviaProject\\App.axaml",
-              "ToolTip": "C:\\Users\\MakZab\\source\\repos\\AviaTaskManager\\TaskMonagerAviaProject\\App.axaml",
-              "RelativeToolTip": "TaskMonagerAviaProject\\App.axaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-28T14:07:58.698Z",
+              "WhenOpened": "2025-06-02T17:07:21.969Z",
               "EditorCaption": ""
             }
           ]

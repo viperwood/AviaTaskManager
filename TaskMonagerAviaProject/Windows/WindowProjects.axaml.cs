@@ -33,13 +33,13 @@ public partial class WindowProjects : Window
         InitializeComponent();
         _content = File.ReadAllText(path);
         ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(AppDomain.CurrentDomain.BaseDirectory + @"\Images\1667650479147654979.jpg");
-        LoadStile();
+        /*LoadStile();*/
         AddHandler(DragDrop.DropEvent, Drop);
     }
 
     private string path = AppDomain.CurrentDomain.BaseDirectory + @"\UserLog.json";
     private string _content = "";
-    
+
     private bool _isPanelOpen = false;
     private bool _isPanelProjectOpen = true;
 
@@ -51,12 +51,12 @@ public partial class WindowProjects : Window
             SystemMessage.IsVisible = true;
             _content = content;
         }
-        LoadStile();
+        /*LoadStile();*/
         LoadProjects();
         AddHandler(DragDrop.DropEvent, Drop);
     }
 
-    private void LoadStile()
+    /*private void LoadStile()
     {
         if (UserAutorizationTrue.userLog.ImageBackground != null)
         {
@@ -74,7 +74,7 @@ public partial class WindowProjects : Window
             DarckLight = !Convert.ToBoolean(UserAutorizationTrue.userLog.DarckLightColor);
             DayNightStile();
         }
-    }
+    }*/
 
     private void YesSaveButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -405,7 +405,7 @@ public partial class WindowProjects : Window
                         OpenPanelEditOrAnswer = false;
                     }
                 }
-                
+
             }
         }
     }
@@ -469,7 +469,7 @@ public partial class WindowProjects : Window
     {
         CreateProjectWindow createProjectWindow = new CreateProjectWindow(UserAutorizationTrue.ProjectId);
         await createProjectWindow.ShowDialog(this);
-        if(UserAutorizationTrue.ProjectId == Guid.Empty)
+        if (UserAutorizationTrue.ProjectId == Guid.Empty)
         {
             ProjectVisible.IsVisible = false;
             MenuButtonsProject.IsVisible = false;
@@ -1078,7 +1078,7 @@ public partial class WindowProjects : Window
             HttpResponseMessage httpResponseMessage = await Client.PutAsJsonAsync($"{BaseAddress.Address}Project/Taking_part_project", takingPartProjectModel);
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                
+
                 LoadProjects();
             }
         }
@@ -1116,7 +1116,7 @@ public partial class WindowProjects : Window
                 ImageTest.Source = new Avalonia.Media.Imaging.Bitmap(memoryStream);
             }
         }
-        LoadStile();
+        /*LoadStile();*/
     }
 
     private void TasksSprintsMenu()
@@ -1267,7 +1267,7 @@ public partial class WindowProjects : Window
                     x.NameProject,
                     ListTasksUserInList = x.ListTasks!.Select(y => new
                     {
-                        y.TitleTask, 
+                        y.TitleTask,
                         y.DescriptionTask,
                         ColorTask = new SolidColorBrush(Avalonia.Media.Color.FromArgb(System.Drawing.ColorTranslator.FromHtml(y.Color!).A, System.Drawing.ColorTranslator.FromHtml(y.Color!).R, System.Drawing.ColorTranslator.FromHtml(y.Color!).G, System.Drawing.ColorTranslator.FromHtml(y.Color!).B)),
                         y.TitleStatus

@@ -33,26 +33,18 @@
 					<Color x:Key="TextColor">White</Color>
 					<Color x:Key="SecondaryTextColor">#cbcbcb</Color>
 					<Color x:Key="SeparatorColor">#1A1A1A</Color>
-					
-					<Color x:Key="320571">#320571</Color>
-					<Color x:Key="8144D6">#8144D6</Color>
-					<Color x:Key="976BD6">#976BD6</Color>
 				</ResourceDictionary>
 				<ResourceDictionary x:Key="Light">
 					<Color x:Key="MainColor">#1D20A6</Color>
 					<Color x:Key="MainSecondColor">#595cff</Color>
 					<Color x:Key="SecondaryColor">#eee2df</Color>
 					<Color x:Key="ButtonColor">#7A7DFF</Color>
-					<Color x:Key="SecondaryButtonColor">#1D20A6</Color>
+					<Color x:Key="SecondaryButtonColor">#5055FF</Color>
 					<Color x:Key="PanelsColor">#898989</Color>
 					<Color x:Key="SecondaryPanelsColor">#C4C4C4</Color>
 					<Color x:Key="TextColor">Black</Color>
 					<Color x:Key="SecondaryTextColor">#DADADA</Color>
 					<Color x:Key="SeparatorColor">#9F9F9F</Color>
-
-					<Color x:Key="320571">#320571</Color>
-					<Color x:Key="8144D6">#8144D6</Color>
-					<Color x:Key="976BD6">#976BD6</Color>
 				</ResourceDictionary>
 			</ResourceDictionary.ThemeDictionaries>
 		</ResourceDictionary>

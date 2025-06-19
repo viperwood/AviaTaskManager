@@ -20,11 +20,13 @@ public partial class CreateSprintWindow : Window
     public CreateSprintWindow()
     {
         InitializeComponent();
+        NameWindow.Text = "Создание спринта";
         LoadInfoBox();
     }
     public CreateSprintWindow(int Id)
     {
         InitializeComponent();
+        NameWindow.Text = "Редактирование спринта";
         _Id = Id;
         LoadInfo();
     }

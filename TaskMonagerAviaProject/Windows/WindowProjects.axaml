@@ -14,42 +14,42 @@
 
 		<!--Верхняя панель-->
 		<Grid ColumnDefinitions="230 2* *" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="6">
-				<Grid.Background>
-					<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
-						<GradientStop Color="{DynamicResource MainColor}" Offset="0.0"/>
-						<GradientStop Color="{DynamicResource SecondaryColor}" Offset="1.0"/>
-					</LinearGradientBrush>
-				</Grid.Background>
-				<Image Grid.Column="0" Source="\Images\Logo.png" Margin="10 0 0 0"/>
-				<StackPanel IsVisible="False" Name="MenuButtonsProject" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="1">
-					<Button Name="TasksButtonMenu" Click="TasksButton" BorderBrush="Gray" BorderThickness="1 1 1 0" CornerRadius="10 10 0 0" Margin="10 0">
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="Список задач" FontSize="15" Margin="40 0"/>
-						</StackPanel>
-					</Button>
-					<Button Name="SprintsButtonMenu" Click="SprintsButton" BorderThickness="1 1 1 0" CornerRadius="10 10 0 0" BorderBrush="Gray" Margin="10 0">
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="Спринты" FontSize="15" Margin="40 0"/>
-						</StackPanel>
-					</Button>
-				</StackPanel>
-				<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
-					<Button Background="{DynamicResource ButtonColor}" Margin="10" Click="DayNightButton">
-						<PathIcon Name="ButtonIconDayNight" Foreground="White" Data="{StaticResource weather_moon_regular}"/>
-					</Button>
-					<Button Background="{DynamicResource ButtonColor}" Margin="10" Click="AddFrendButtonPanel">
-						<PathIcon Foreground="White" Data="{StaticResource person_add_regular}"/>
-					</Button>
-					<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Center" Margin="10" Click="ButtonMailBoxPanel">
-						<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
-					</Button>
-					<Button Background="{DynamicResource ButtonColor}" Margin="10" Click="ButtonPanel">
-						<PathIcon Foreground="White" Data="{StaticResource person_regular}"/>
-					</Button>
-				</StackPanel>
-			</Grid>
+			<Grid.Background>
+				<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+					<GradientStop Color="{DynamicResource MainColor}" Offset="0.0"/>
+					<GradientStop Color="{DynamicResource SecondaryColor}" Offset="1.0"/>
+				</LinearGradientBrush>
+			</Grid.Background>
+			<Image Grid.Column="0" Source="\Images\Logo.png" Margin="10 0 0 0"/>
+			<StackPanel IsVisible="False" Name="MenuButtonsProject" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="1">
+				<Button Name="TasksButtonMenu" Click="TasksButton" BorderBrush="Gray" BorderThickness="1 1 1 0" CornerRadius="10 10 0 0" Margin="10 0">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Список задач" FontSize="15" Margin="40 0"/>
+					</StackPanel>
+				</Button>
+				<Button Name="SprintsButtonMenu" Click="SprintsButton" BorderThickness="1 1 1 0" CornerRadius="10 10 0 0" BorderBrush="Gray" Margin="10 0">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="Спринты" FontSize="15" Margin="40 0"/>
+					</StackPanel>
+				</Button>
+			</StackPanel>
+			<StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
+				<Button Background="{DynamicResource ButtonColor}" Margin="10" Click="DayNightButton">
+					<PathIcon Name="ButtonIconDayNight" Foreground="White" Data="{StaticResource weather_moon_regular}"/>
+				</Button>
+				<Button Background="{DynamicResource ButtonColor}" Margin="10" Click="AddFrendButtonPanel">
+					<PathIcon Foreground="White" Data="{StaticResource person_add_regular}"/>
+				</Button>
+				<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Center" Margin="10" Click="ButtonMailBoxPanel">
+					<PathIcon Foreground="White" Data="{StaticResource comment_multiple_regular}"/>
+				</Button>
+				<Button Background="{DynamicResource ButtonColor}" Margin="10" Click="ButtonPanel">
+					<PathIcon Foreground="White" Data="{StaticResource person_regular}"/>
+				</Button>
+			</StackPanel>
+		</Grid>
 
-		
+
 		<!--Левая панель-->
 		<SplitView PanePlacement="Left" Grid.Column="0" Name="PanelProjects" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="7" IsPaneOpen="True"
            DisplayMode="CompactInline"
@@ -117,11 +117,15 @@
 
 			<!--Панель переключения страницы-->
 			<SplitView.Content>
-				<Grid Name="ProjectVisible" IsVisible="True" Background="{DynamicResource SecondaryColor}" ColumnDefinitions="50 * 50" RowDefinitions="50 * 20">
-					<Border ClipToBounds="True" Grid.Row="0" Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="10 0 0 0">
-						<Image Effect="blur(5)" Stretch="UniformToFill" Name="ImageBackground" Source="\Image\testImmage.jpg"/>
-					</Border>
-					<Border CornerRadius="10 0 0 0" Background="{DynamicResource SecondaryPanelsColor}" Name="TopButtonVisible" IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
+				<Border ClipToBounds="True" CornerRadius="10 0 0 0">
+					<Grid Name="ProjectVisible" IsVisible="True" ColumnDefinitions="50 * 50" RowDefinitions="50 * 20">
+					<Grid.Background>
+						<LinearGradientBrush StartPoint="40%,60%" EndPoint="100%,100%">
+							<GradientStop Color="{DynamicResource PanelsColor}" Offset="0.0"/>
+							<GradientStop Color="{DynamicResource SeparatorColor}" Offset="1.0"/>
+						</LinearGradientBrush>
+					</Grid.Background>
+					<Border CornerRadius="10 0 0 0" Background="Transparent" Name="TopButtonVisible" IsVisible="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" BorderBrush="#1e1e1e" BorderThickness="0 0 0 1">
 						<Grid>
 							<ScrollViewer Name="TaskMenu" IsVisible="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
 								<StackPanel Orientation="Horizontal">
@@ -164,12 +168,14 @@
 							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10 0" Name="TimerText"/>
 						</Grid>
 					</Border>
-					
+
 					<Border Grid.Column="0" Grid.Row="2" Name="DounBorder" Grid.ColumnSpan="3" Background="{DynamicResource MainSecondColor}"></Border>
-					
+
 					<!--Таски-->
 					<TreeView Grid.Column="1" Grid.Row="1"
 						  Margin="50"
+							  Background="Transparent"
+						  CornerRadius="10"
 						  IsVisible="False"
 						  Name="ListTasks"
 						  SelectionMode="Single">
@@ -180,10 +186,10 @@
 						</TreeView.Styles>
 						<TreeView.ItemTemplate>
 							<TreeDataTemplate ItemsSource="{Binding Subtask}">
-								<Border Background="{DynamicResource 38GrayColor}" CornerRadius="10" BorderBrush="Black" BorderThickness="1">
+								<Border Background="{DynamicResource PanelsColor}" CornerRadius="10" BorderBrush="Black" BorderThickness="1">
 									<Border.Background>
 										<LinearGradientBrush StartPoint="80%,0%" EndPoint="100%,0%">
-											<GradientStop Color="{DynamicResource ButtonColor}" Offset="0.0"/>
+											<GradientStop Color="{DynamicResource SecondaryPanelsColor}" Offset="0.0"/>
 											<GradientStop Color="{Binding StatusColorGradient}" Offset="1.0"/>
 										</LinearGradientBrush>
 									</Border.Background>
@@ -197,8 +203,8 @@
 											<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Text="{Binding StatusTitle}"/>
 										</Border>
 										<StackPanel Grid.Column="1" HorizontalAlignment="Center">
-											<TextBlock Text="{Binding TitleTask}"/>
-											<TextBlock Text="{Binding DescriptionTask}"/>
+											<TextBlock HorizontalAlignment="Center" Text="{Binding TitleTask}"/>
+											<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" MaxWidth="600" Text="{Binding DescriptionTask}"/>
 										</StackPanel>
 										<ListBox Background="Transparent" ItemsSource="{Binding userList}" Grid.Column="2">
 											<ListBox.ItemTemplate>
@@ -365,102 +371,102 @@
 									</ScrollViewer>
 								</Grid>
 								<!--Переписки в проекте-->
-									<Grid Name="PanelProjectMails" Grid.Column="1" ColumnDefinitions="20 4* 4 2* 50" RowDefinitions="20 * 20" IsVisible="False" Margin="10">
-										<ListBox CornerRadius="0 10 10 0" Name="ListUsersProjects" Background="{DynamicResource PanelsColor}" Grid.Column="3" Grid.Row="1">
-											<ListBox.ItemTemplate>
-												<DataTemplate>
-													<Border BorderBrush="White" Background="{DynamicResource ButtonColor}" BorderThickness="1" CornerRadius="10">
-														<Grid ColumnDefinitions="* 1 *">
-															<TextBlock Grid.Column="0" TextWrapping="Wrap" Foreground="White" Text="{Binding Username}" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center"/>
-															<StackPanel Grid.Column="1" Background="{DynamicResource SeparatorColor}" VerticalAlignment="Stretch"/>
-															<TextBlock Grid.Column="2" TextWrapping="Wrap" Foreground="White" Text="{Binding TitleRole}" Margin="10"/>
-														</Grid>
-													</Border>
-												</DataTemplate>
-											</ListBox.ItemTemplate>
-										</ListBox>
-										<GridSplitter Grid.Column="2" Grid.Row="1" Background="{DynamicResource SeparatorColor}" ResizeDirection="Columns"/>
-										<Grid RowDefinitions="50 * 0.1*" Grid.Column="1" Grid.Row="1">
-											<Border Grid.Row="0" CornerRadius="10 0 0 0" Background="{DynamicResource PanelsColor}">
-												<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="NameProjectMail" FontSize="20"/>
-											</Border>
-											<ScrollViewer Grid.Row="1">
-												<ListBox Name="ListTextMailsProject" Background="{DynamicResource SecondaryPanelsColor}">
-													<ListBox.ItemTemplate>
-														<DataTemplate>
-															<Border Background="{Binding ColorUser}" MaxWidth="300" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
-																<Border.ContextMenu>
-																	<ContextMenu>
-																		<MenuItem Tag="{Binding Id}" Click="EditMailTextProjectButton" Header="Редактировать"/>
-																		<MenuItem Tag="{Binding Id}" Click="AnswerMailTextProjectButton" Header="Ответить"/>
-																		<MenuItem Tag="{Binding Id}" Click="DelitMailTextProjectButton" Header="Удалить"/>
-																	</ContextMenu>
-																</Border.ContextMenu>
+								<Grid Name="PanelProjectMails" Grid.Column="1" ColumnDefinitions="20 4* 4 2* 50" RowDefinitions="20 * 20" IsVisible="False" Margin="10">
+									<ListBox CornerRadius="0 10 10 0" Name="ListUsersProjects" Background="{DynamicResource PanelsColor}" Grid.Column="3" Grid.Row="1">
+										<ListBox.ItemTemplate>
+											<DataTemplate>
+												<Border BorderBrush="White" Background="{DynamicResource ButtonColor}" BorderThickness="1" CornerRadius="10">
+													<Grid ColumnDefinitions="* 1 *">
+														<TextBlock Grid.Column="0" TextWrapping="Wrap" Foreground="White" Text="{Binding Username}" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center"/>
+														<StackPanel Grid.Column="1" Background="{DynamicResource SeparatorColor}" VerticalAlignment="Stretch"/>
+														<TextBlock Grid.Column="2" TextWrapping="Wrap" Foreground="White" Text="{Binding TitleRole}" Margin="10"/>
+													</Grid>
+												</Border>
+											</DataTemplate>
+										</ListBox.ItemTemplate>
+									</ListBox>
+									<GridSplitter Grid.Column="2" Grid.Row="1" Background="{DynamicResource SeparatorColor}" ResizeDirection="Columns"/>
+									<Grid RowDefinitions="50 * 0.1*" Grid.Column="1" Grid.Row="1">
+										<Border Grid.Row="0" CornerRadius="10 0 0 0" Background="{DynamicResource PanelsColor}">
+											<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Name="NameProjectMail" FontSize="20"/>
+										</Border>
+										<ScrollViewer Grid.Row="1">
+											<ListBox Name="ListTextMailsProject" Background="{DynamicResource SecondaryPanelsColor}">
+												<ListBox.ItemTemplate>
+													<DataTemplate>
+														<Border Background="{Binding ColorUser}" MaxWidth="300" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
+															<Border.ContextMenu>
+																<ContextMenu>
+																	<MenuItem Tag="{Binding Id}" Click="EditMailTextProjectButton" Header="Редактировать"/>
+																	<MenuItem Tag="{Binding Id}" Click="AnswerMailTextProjectButton" Header="Ответить"/>
+																	<MenuItem Tag="{Binding Id}" Click="DelitMailTextProjectButton" Header="Удалить"/>
+																</ContextMenu>
+															</Border.ContextMenu>
+															<StackPanel>
 																<StackPanel>
-																	<StackPanel>
-																		<TextBlock TextWrapping="Wrap" Text="{Binding Username}" Margin="10 5"/>
-																		<Border BorderBrush="{DynamicResource TextColor}" BorderThickness="0 1 0 0"/>
-																	</StackPanel>
-																	<StackPanel Tag="{Binding AnswerMailId}" IsVisible="{Binding VisibleAnsver}">
-																		<TextBlock TextWrapping="Wrap" Text="{Binding AnswerMailText}" Margin="10 5"/>
-																		<Border BorderBrush="{DynamicResource TextColor}" BorderThickness="0 1 0 0"/>
-																	</StackPanel>
-																	<StackPanel>
-																		<TextBlock TextWrapping="Wrap" Text="{Binding TextMail}" Margin="10 5"/>
-																		<TextBlock Margin="10 5" TextWrapping="Wrap" Foreground="{DynamicResource SecondaryTextColor}" Text="{Binding TitleStatusDateAndTimeComent}"/>
-																	</StackPanel>
+																	<TextBlock TextWrapping="Wrap" Text="{Binding Username}" Margin="10 5"/>
+																	<Border BorderBrush="{DynamicResource TextColor}" BorderThickness="0 1 0 0"/>
 																</StackPanel>
-															</Border>
-														</DataTemplate>
-													</ListBox.ItemTemplate>
-												</ListBox>
+																<StackPanel Tag="{Binding AnswerMailId}" IsVisible="{Binding VisibleAnsver}">
+																	<TextBlock TextWrapping="Wrap" Text="{Binding AnswerMailText}" Margin="10 5"/>
+																	<Border BorderBrush="{DynamicResource TextColor}" BorderThickness="0 1 0 0"/>
+																</StackPanel>
+																<StackPanel>
+																	<TextBlock TextWrapping="Wrap" Text="{Binding TextMail}" Margin="10 5"/>
+																	<TextBlock Margin="10 5" TextWrapping="Wrap" Foreground="{DynamicResource SecondaryTextColor}" Text="{Binding TitleStatusDateAndTimeComent}"/>
+																</StackPanel>
+															</StackPanel>
+														</Border>
+													</DataTemplate>
+												</ListBox.ItemTemplate>
+											</ListBox>
+										</ScrollViewer>
+										<Border Grid.Row="1" Background="{DynamicResource PanelsColor}" IsVisible="False" Name="PanelAnswerProject" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
+											<ScrollViewer>
+												<StackPanel>
+													<Grid>
+														<Border Margin="10 10 50 10" Background="{DynamicResource DimGrayColor}" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
+															<StackPanel>
+																<StackPanel>
+																	<TextBlock TextWrapping="Wrap" Name="UsernameTextMailProject" Margin="10 5"/>
+																	<Border BorderBrush="WhiteSmoke" BorderThickness="0 1 0 0"/>
+																</StackPanel>
+																<TextBlock TextWrapping="Wrap" Name="AnswerTextMailProject" Margin="10 5"/>
+																<StackPanel Margin="10 5" Orientation="Horizontal">
+																	<TextBlock TextWrapping="Wrap" Name="AnswerTitleStatusProject" Foreground="Gainsboro" Margin="0 0 10 0"/>
+																	<TextBlock TextWrapping="Wrap" Name="AnswerDateAndTimeMailProject" Foreground="Gainsboro"/>
+																</StackPanel>
+															</StackPanel>
+														</Border>
+														<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Top" Click="ProjectCloseAnswer" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
+															<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
+														</Button>
+													</Grid>
+												</StackPanel>
 											</ScrollViewer>
-											<Border Grid.Row="1" Background="{DynamicResource PanelsColor}" IsVisible="False" Name="PanelAnswerProject" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
-												<ScrollViewer>
-													<StackPanel>
-														<Grid>
-															<Border Margin="10 10 50 10" Background="{DynamicResource DimGrayColor}" HorizontalAlignment="{Binding HorizontalAligmentText}" Tag="1" BorderBrush="WhiteSmoke" BorderThickness="1" CornerRadius="10">
-																<StackPanel>
-																	<StackPanel>
-																		<TextBlock TextWrapping="Wrap" Name="UsernameTextMailProject" Margin="10 5"/>
-																		<Border BorderBrush="WhiteSmoke" BorderThickness="0 1 0 0"/>
-																	</StackPanel>
-																	<TextBlock TextWrapping="Wrap" Name="AnswerTextMailProject" Margin="10 5"/>
-																	<StackPanel Margin="10 5" Orientation="Horizontal">
-																		<TextBlock TextWrapping="Wrap" Name="AnswerTitleStatusProject" Foreground="Gainsboro" Margin="0 0 10 0"/>
-																		<TextBlock TextWrapping="Wrap" Name="AnswerDateAndTimeMailProject" Foreground="Gainsboro"/>
-																	</StackPanel>
-																</StackPanel>
-															</Border>
-															<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Top" Click="ProjectCloseAnswer" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
-																<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
-															</Button>
-														</Grid>
-													</StackPanel>
-												</ScrollViewer>
-											</Border>
-											<Border Grid.Row="1" Background="{DynamicResource PanelsColor}" IsVisible="False" Name="PanelEditTextProject" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
-												<ScrollViewer>
-													<StackPanel>
-														<Grid>
-															<TextBlock Text="Редактирование" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
-															<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Top" Click="ProjectCloseEdit" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
-																<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
-															</Button>
-														</Grid>
-													</StackPanel>
-												</ScrollViewer>
-											</Border>
-											<Border Grid.Row="2" CornerRadius="0 0 0 10" Background="{DynamicResource PanelsColor}">
-												<Grid Name="PushTextPanelProject">
-													<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Stretch" Click="PushTextMailProjectButton" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="0 10 10 0" BorderBrush="Gray">
-														<PathIcon Foreground="White" Data="{StaticResource caret_right_regular}"/>
-													</Button>
-													<TextBox Foreground="{DynamicResource TextColor}" AcceptsReturn="True" CornerRadius="10 0 0 10" BorderBrush="Black" Name="PushTextMail" Margin="10 10 50 10" TextWrapping="Wrap" Watermark="Сообщение" />
-												</Grid>
-											</Border>
-										</Grid>
+										</Border>
+										<Border Grid.Row="1" Background="{DynamicResource PanelsColor}" IsVisible="False" Name="PanelEditTextProject" VerticalAlignment="Bottom" BorderBrush="DimGray" BorderThickness="0 1 0 0">
+											<ScrollViewer>
+												<StackPanel>
+													<Grid>
+														<TextBlock Text="Редактирование" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+														<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Top" Click="ProjectCloseEdit" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="10" BorderBrush="Gray">
+															<PathIcon Width="15" Foreground="White" Data="{StaticResource dismiss_regular}"/>
+														</Button>
+													</Grid>
+												</StackPanel>
+											</ScrollViewer>
+										</Border>
+										<Border Grid.Row="2" CornerRadius="0 0 0 10" Background="{DynamicResource PanelsColor}">
+											<Grid Name="PushTextPanelProject">
+												<Button Background="{DynamicResource ButtonColor}" VerticalAlignment="Stretch" Click="PushTextMailProjectButton" HorizontalAlignment="Right" Margin="0 10 10 10" CornerRadius="0 10 10 0" BorderBrush="Gray">
+													<PathIcon Foreground="White" Data="{StaticResource caret_right_regular}"/>
+												</Button>
+												<TextBox Foreground="{DynamicResource TextColor}" AcceptsReturn="True" CornerRadius="10 0 0 10" BorderBrush="Black" Name="PushTextMail" Margin="10 10 50 10" TextWrapping="Wrap" Watermark="Сообщение" />
+											</Grid>
+										</Border>
 									</Grid>
+								</Grid>
 							</Grid>
 						</SplitView.Pane>
 					</SplitView>
@@ -498,6 +504,7 @@
 						</ListBox>
 					</ScrollViewer>
 				</Grid>
+				</Border>
 			</SplitView.Content>
 		</SplitView>
 
@@ -540,7 +547,7 @@
 						<StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
 							<Button Foreground="White" Background="{DynamicResource ButtonColor}" CornerRadius="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0 10" Click="EditUseutton" Content="Настройки пользователя"/>
 							<Button Foreground="White" Background="{DynamicResource ButtonColor}" CornerRadius="10" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="ExitAccaunt" Content="Выйти из аккаунта"/>
-							<TextBlock Foreground="White" Text="Преглашения в проекты:" Margin="0 10" FontSize="20"/>
+							<TextBlock Foreground="White" Text="Приглашение в проекты:" Margin="0 10" FontSize="20"/>
 						</StackPanel>
 						<ListBox Name="ListAcceptanceCancelProjects" Background="{DynamicResource PanelsColor}" Grid.Column="1" Margin="0 10" CornerRadius="10" Grid.Row="3">
 							<ListBox.ItemTemplate>
@@ -658,17 +665,17 @@
 					<!--Панель подтверждения друзей-->
 					<Grid ColumnDefinitions="50 * 50" RowDefinitions="20 100 50 * 50 * 20" IsVisible="False" Name="FrendsPanel" Margin="10" Grid.Column="1">
 						<StackPanel Grid.Column="1" Grid.Row="1">
-							<TextBlock Text="Отправить преглошение в друзья" FontSize="20" HorizontalAlignment="Center" Foreground="White"/>
+							<TextBlock Text="Отправить приглашение в друзья" FontSize="20" HorizontalAlignment="Center" Foreground="White"/>
 							<Grid>
 								<Button HorizontalAlignment="Right" Background="{DynamicResource ButtonColor}" Click="AddNewFrend" VerticalAlignment="Stretch" Margin="0 10 0 10" CornerRadius="0 10 10 0" BorderBrush="Gray">
 									<PathIcon Foreground="White" Data="{StaticResource people_search_regular}"/>
 								</Button>
-								<TextBox Padding="10" BorderBrush="White" Foreground="White" Name="FrendNameText" Margin="0 10 40 10" TextWrapping="Wrap" Background="{DynamicResource 38GrayColor}" CornerRadius="10 0 0 10" Watermark="Username#0000" BorderThickness="1"/>
+								<TextBox Padding="10" BorderBrush="White" Foreground="White" Name="FrendNameText" Margin="0 10 40 10" TextWrapping="Wrap" Background="{DynamicResource PanelsColor}" CornerRadius="10 0 0 10" Watermark="Username#0000" BorderThickness="1"/>
 							</Grid>
 							<TextBlock Name="ErrorAddFrend" HorizontalAlignment="Center"/>
 						</StackPanel>
 						<TextBlock Foreground="White" Text="Список ваших друзей:" FontSize="20" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
-						<ListBox Grid.Column="1" Name="ListUserFrends" CornerRadius="10" Grid.Row="3" Background="{DynamicResource 38GrayColor}">
+						<ListBox Grid.Column="1" Name="ListUserFrends" CornerRadius="10" Grid.Row="3" Background="{DynamicResource PanelsColor}">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<Border Background="{DynamicResource MainSecondColor}" Margin="10" BorderBrush="White" BorderThickness="1" CornerRadius="10">
@@ -685,7 +692,7 @@
 							</ListBox.ItemTemplate>
 						</ListBox>
 						<TextBlock Foreground="White" Text="Заявки в друзья:" FontSize="20" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"/>
-						<ListBox Name="ListAddUserFrends" Grid.Column="1" CornerRadius="10" Grid.Row="5" Background="{DynamicResource 38GrayColor}">
+						<ListBox Name="ListAddUserFrends" Grid.Column="1" CornerRadius="10" Grid.Row="5" Background="{DynamicResource PanelsColor}">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<Border Margin="10" BorderBrush="White" BorderThickness="1" CornerRadius="10">

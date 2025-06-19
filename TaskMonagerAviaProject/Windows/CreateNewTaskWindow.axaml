@@ -28,7 +28,7 @@
 			<ScrollViewer>
 				<Grid ColumnDefinitions="50 * 50" RowDefinitions="* 50 * 50 * 100">
 					<StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
-						<TextBlock Text="Создание новой задачи" FontSize="30" HorizontalAlignment="Center"/>
+						<TextBlock Name="TextWindow" FontSize="30" HorizontalAlignment="Center"/>
 						<TextBox Name="NameTaskText" Watermark="Название задачи" Margin="10"/>
 						<TextBox VerticalAlignment="Stretch" TextWrapping="Wrap" AcceptsReturn="True" Name="DescriptionTaskText" Watermark="Описание задачи" Margin="10"/>
 					</StackPanel>

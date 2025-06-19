@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="TaskMonagerAviaProject.CreateSprintWindow"
 		x:CompileBindings="False"
-        Title="CreateSprintWindow"
+        Title="SprintWindow"
 		MaxHeight="650"
 		MaxWidth="800"
 		MinHeight="650"
@@ -27,7 +27,7 @@
 		<Panel Margin="40">
 			<Grid ColumnDefinitions="50 * 50" RowDefinitions="50 5* 3* 50 50">
 				<StackPanel VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
-					<TextBlock Text="Добавление пользователя в проект" FontSize="30" HorizontalAlignment="Center"/>
+					<TextBlock Name="NameWindow" FontSize="30" HorizontalAlignment="Center"/>
 					<TextBlock Text="Дата начала:" Margin="10 0"/>
 					<CalendarDatePicker Name="DateStart" HorizontalAlignment="Stretch" Margin="10"/>
 					<TextBlock Text="Дата Конца:" Margin="10 0"/>
